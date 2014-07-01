@@ -1,4 +1,4 @@
-Simple Artificial Neural Network Framework
+Simple Artificial Neural Network Micro-Framework
 ===========================================
 
 
