@@ -32,12 +32,10 @@ package br.com.wfcreations.sannf.structure.recurrents;
 import java.util.Arrays;
 
 import br.com.wfcreations.sannf.function.activation.ActivationFunction;
-import br.com.wfcreations.sannf.function.transfer.TransferFunction;
+import br.com.wfcreations.sannf.function.input.IInputFunction;
 import br.com.wfcreations.sannf.structure.Neuron;
 
 public class TemporalNeuron extends Neuron {
-
-	public static int DEFAULT_HISTORY_SIZE = 5;
 
 	private static final long serialVersionUID = 1L;
 
@@ -45,15 +43,11 @@ public class TemporalNeuron extends Neuron {
 
 	private int historySize;
 
-	public TemporalNeuron(TransferFunction inputFunction, ActivationFunction activationFunction, int historySize) {
+	public TemporalNeuron(IInputFunction inputFunction, ActivationFunction activationFunction, int historySize) {
 		super(inputFunction, activationFunction);
 		this.setHistorySize(historySize);
 		history = new double[0];
 		history[0] = 0;
-	}
-
-	public TemporalNeuron(TransferFunction inputFunction, ActivationFunction activationFunction) {
-		this(inputFunction, activationFunction, DEFAULT_HISTORY_SIZE);
 	}
 
 	@Override
