@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, Welsiton Ferreira (wfcreations@gmail.com)
+ * Copyright (c) Welsiton Ferreira (wfcreations@gmail.com)
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -27,19 +27,8 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package br.com.wfcreations.sannf.data.normalization;
+package br.com.wfcreations.sannf.test.neuralnetwork;
 
-import java.util.List;
+public class LayerTest {
 
-import br.com.wfcreations.sannf.data.UnsupervisedPattern;
-
-public interface INormalizableSet {
-
-	public List<? extends UnsupervisedPattern> getPatterns();
-
-	public UnsupervisedPattern getPatternAt(int index);
-
-	public int inputsNum();
-
-	public int lenght();
 }

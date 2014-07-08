@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, Welsiton Ferreira (wfcreations@gmail.com)
+ * Copyright (c) Welsiton Ferreira (wfcreations@gmail.com)
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -46,7 +46,7 @@ public class Tanh extends DerivativeActivationFunction {
 	public double output(double x) {
 		double exp1 = Math.exp(this.getSlope() * x);
 		double exp2 = Math.exp(-this.getSlope() * x);
-		this.output = (exp1 - exp1) / (exp1 + exp2);
+		this.output = (exp1 - exp2) / (exp1 + exp2);
 		return this.output;
 	}
 

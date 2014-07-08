@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, Welsiton Ferreira (wfcreations@gmail.com)
+ * Copyright (c) Welsiton Ferreira (wfcreations@gmail.com)
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -34,9 +34,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import br.com.wfcreations.sannf.data.normalization.INormalizableSet;
-
-public class SupervisedSet implements INormalizableSet, Serializable {
+public class SupervisedSet implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -77,8 +75,7 @@ public class SupervisedSet implements INormalizableSet, Serializable {
 	public Iterator<SupervisedPattern> iterator() {
 		return this.patterns.iterator();
 	}
-
-	@Override
+	
 	public SupervisedPattern getPatternAt(int index) {
 		return this.patterns.get(index);
 	}
@@ -92,7 +89,6 @@ public class SupervisedSet implements INormalizableSet, Serializable {
 		return this.patterns.isEmpty();
 	}
 
-	@Override
 	public int lenght() {
 		return this.patterns.size();
 	}
@@ -105,7 +101,6 @@ public class SupervisedSet implements INormalizableSet, Serializable {
 		return outputsNum;
 	}
 
-	@Override
 	public List<SupervisedPattern> getPatterns() {
 		return patterns;
 	}
