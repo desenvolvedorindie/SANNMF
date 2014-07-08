@@ -56,12 +56,4 @@ public class TemportalSynapse extends Synapse {
 		this.delay = delay;
 		return this;
 	}
-
-	@Override
-	public double input() {
-		if (this.getPresynaptic() instanceof TemporalNeuron)
-			return ((TemporalNeuron) this.presynaptic).output(delay);
-		else
-			return this.presynaptic.output();
-	}
 }

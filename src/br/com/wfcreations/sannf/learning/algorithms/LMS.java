@@ -43,6 +43,6 @@ public class LMS extends DeltaRule {
 
 	@Override
 	protected double weightChange(Neuron neuron, Synapse synapse) {
-		return this.learningRate * neuron.getError() * synapse.input();
+		return this.learningRate * neuron.getError() * synapse.getPresynaptic().getOutput();
 	}
 }

@@ -29,7 +29,7 @@
  */
 package br.com.wfcreations.sannf.structure;
 
-public class BiasNeuron extends Neuron {
+public class BiasNeuron extends InputNeuron {
 
 	private static final long serialVersionUID = 1L;
 
@@ -38,17 +38,7 @@ public class BiasNeuron extends Neuron {
 	}
 
 	@Override
-	public double output() {
+	public double getOutput() {
 		return 1;
-	}
-
-	@Override
-	public boolean addInputConnection(Synapse synapse) {
-		throw new RuntimeException("You can't use this");
-	}
-
-	@Override
-	public Synapse addInputConnectionFrom(Neuron neuron) {
-		throw new RuntimeException("You can't use this");
 	}
 }

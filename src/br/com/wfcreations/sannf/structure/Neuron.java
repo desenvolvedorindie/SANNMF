@@ -47,7 +47,7 @@ public class Neuron implements Serializable {
 
 	protected Synapse[] outputs = new Synapse[0];
 
-	protected IInputFunction transferFunction;
+	protected IInputFunction inputFunction;
 
 	protected ActivationFunction activationFunction;
 
@@ -58,25 +58,24 @@ public class Neuron implements Serializable {
 	protected transient double error;
 
 	public Neuron() {
-		this.transferFunction = new WeightedSum();
-		this.activationFunction = new Linear();
+		this(new WeightedSum(), new Linear());
 	}
 
-	public Neuron(IInputFunction transferFunction, ActivationFunction activationFunction) {
-		this.setInputFunction(transferFunction).setActivationFunction(activationFunction);
+	public Neuron(IInputFunction inputFunction, ActivationFunction activationFunction) {
+		this.setInputFunction(inputFunction).setActivationFunction(activationFunction);
 	}
 
 	public Neuron activate() {
-		this.inducedLocalField = this.transferFunction.output(this.inputs);
+		this.inducedLocalField = this.inputFunction.output(this.inputs);
 		this.output = this.activationFunction.output(this.inducedLocalField);
 		return this;
 	}
 
-	public double inducedLocalField() {
+	public double getInducedLocalField() {
 		return this.inducedLocalField;
 	}
 
-	public double output() {
+	public double getOutput() {
 		return this.output;
 	}
 
@@ -86,46 +85,43 @@ public class Neuron implements Serializable {
 		return this;
 	}
 
-	public int inputsNum() {
+	public int getInputsNum() {
 		return this.inputs.length;
 	}
 
 	public boolean hasInputConnection() {
-		return this.inputsNum() > 0;
+		return this.getInputsNum() > 0;
 	}
 
-	public boolean hasInputConnectionFrom(Neuron neuron) {
+	public boolean hasConnectionFrom(Neuron neuron) {
+		if (neuron == null)
+			throw new IllegalArgumentException("Neuron can't be null");
 		for (Synapse synapser : inputs)
 			if (synapser.getPresynaptic() == neuron)
 				return true;
 		return false;
 	}
 
-	public boolean addInputConnection(Synapse synapse) {
+	public boolean addInputSynapse(Synapse synapse) {
 		if (synapse == null)
 			throw new IllegalArgumentException("Synapse can't be null");
 		if (synapse.getPostsynaptic() != this)
 			throw new IllegalArgumentException("Postsynaptical neuron should connect to this");
 
-		if (!this.hasInputConnectionFrom(synapse.getPresynaptic())) {
+		if (!this.hasConnectionFrom(synapse.getPresynaptic())) {
 			this.inputs = Arrays.copyOf(inputs, inputs.length + 1);
 			this.inputs[inputs.length - 1] = synapse;
-			synapse.getPresynaptic().addOutputConnection(synapse);
+			synapse.getPresynaptic().addOutputSynapse(synapse);
 			return true;
 		}
 		return false;
 	}
 
-	public Synapse addInputConnectionFrom(Neuron neuron) {
-		Synapse synapse = new Synapse(neuron, this);
-		if (this.addInputConnection(synapse))
-			return synapse;
-		return null;
-	}
-
 	public boolean removeInputConnection(Synapse synapse) {
-		if (synapse.getPostsynaptic() != null)
-			throw new IllegalArgumentException("Postsynaptical neuron shoyld connect to this");
+		if (synapse == null)
+			throw new IllegalArgumentException("Synapse can't be null");
+		if (synapse.getPostsynaptic() != this)
+			throw new IllegalArgumentException("Postsynaptical neuron shold connect to this");
 		for (int i = 0; i < inputs.length; i++) {
 			if (inputs[i] == synapse) {
 				for (int j = i; j < inputs.length - 1; j++)
@@ -139,7 +135,9 @@ public class Neuron implements Serializable {
 		return false;
 	}
 
-	public boolean removeInputConnectionFrom(Neuron neuron) {
+	public boolean removeConnectionFrom(Neuron neuron) {
+		if (neuron == null)
+			throw new IllegalArgumentException("Neuron can't be null");
 		for (int i = 0; i < inputs.length; i++)
 			if (inputs[i].getPresynaptic() == neuron) {
 				neuron.removeOutputConnection(inputs[i]);
@@ -159,43 +157,40 @@ public class Neuron implements Serializable {
 		return changed;
 	}
 
-	public int outputsNum() {
+	public int getOutputsNum() {
 		return this.outputs.length;
 	}
 
 	public boolean hasOutputConnection() {
-		return this.outputsNum() > 0;
+		return this.getOutputsNum() > 0;
 	}
 
-	public boolean hasOutputConnectionTo(Neuron neuron) {
+	public boolean hasConnectionTo(Neuron neuron) {
+		if (neuron == null)
+			throw new IllegalArgumentException("Neuron can't be null");
 		for (Synapse connection : outputs)
 			if (connection.getPostsynaptic() == neuron)
 				return true;
 		return false;
 	}
 
-	public boolean addOutputConnection(Synapse connection) {
-		if (connection == null)
+	public boolean addOutputSynapse(Synapse synapse) {
+		if (synapse == null)
 			throw new IllegalArgumentException("Synapse can't be null");
-		if (connection.getPresynaptic() != this)
+		if (synapse.getPresynaptic() != this)
 			throw new IllegalArgumentException("Presynaptical neuron should connect to this");
 
-		if (!this.hasOutputConnectionTo(connection.getPostsynaptic())) {
+		if (!this.hasConnectionTo(synapse.getPostsynaptic())) {
 			this.outputs = Arrays.copyOf(outputs, outputs.length + 1);
-			this.outputs[outputs.length - 1] = connection;
+			this.outputs[outputs.length - 1] = synapse;
 			return true;
 		}
 		return false;
 	}
 
-	public Synapse addOutputConnectionTo(Neuron neuron) {
-		Synapse synapse = new Synapse(this, neuron);
-		if (this.addOutputConnection(synapse))
-			return synapse;
-		return null;
-	}
-
 	public boolean removeOutputConnection(Synapse synapse) {
+		if (synapse.getPresynaptic() != this)
+			throw new IllegalArgumentException("Presynaptic neuron shold connect to this");
 		for (int i = 0; i < outputs.length; i++)
 			if (outputs[i] == synapse) {
 				for (int j = i; j < outputs.length - 1; j++)
@@ -207,7 +202,9 @@ public class Neuron implements Serializable {
 		return false;
 	}
 
-	public boolean removeOutputConnectionTo(Neuron neuron) {
+	public boolean removeConnectionTo(Neuron neuron) {
+		if (neuron == null)
+			throw new IllegalArgumentException("Neuron can't be null");
 		for (int i = 0; i < outputs.length; i++) {
 			if (outputs[i].getPostsynaptic() == neuron) {
 				neuron.removeInputConnection(outputs[i]);
@@ -220,7 +217,7 @@ public class Neuron implements Serializable {
 
 	public boolean removeAllOutputConnections() {
 		boolean changed = false;
-		for (int i = 0; i < outputs.length; i++) {
+		for (int i = 0; i < this.outputs.length; i++) {
 			outputs[i].getPostsynaptic().removeInputConnection(outputs[i]);
 			outputs[i] = null;
 			changed = true;
@@ -230,7 +227,7 @@ public class Neuron implements Serializable {
 	}
 
 	public boolean removeAllConnections() {
-		return removeAllInputConnections() || removeAllOutputConnections();
+		return this.removeAllInputConnections() || this.removeAllOutputConnections();
 	}
 
 	public Synapse getSynapsenFrom(Neuron neuron) {
@@ -247,8 +244,24 @@ public class Neuron implements Serializable {
 		return null;
 	}
 
+	public Synapse[] getInputConnections() {
+		return this.inputs;
+	}
+
+	public Synapse getInputConnectionAt(int index) {
+		return this.inputs[index];
+	}
+
+	public Synapse[] getOutputConnections() {
+		return this.outputs;
+	}
+
+	public Synapse getOutputConnectionAt(int index) {
+		return this.outputs[index];
+	}
+
 	public Layer getParentLayer() {
-		return parentLayer;
+		return this.parentLayer;
 	}
 
 	public Neuron setParentLayer(Layer parentLayer) {
@@ -256,24 +269,8 @@ public class Neuron implements Serializable {
 		return this;
 	}
 
-	public Synapse[] getInputs() {
-		return this.inputs;
-	}
-
-	public Synapse getInputAt(int index) {
-		return inputs[index];
-	}
-
-	public Synapse[] getOutputs() {
-		return this.outputs;
-	}
-
-	public Synapse getOutputAt(int index) {
-		return outputs[index];
-	}
-
 	public double getError() {
-		return error;
+		return this.error;
 	}
 
 	public Neuron setError(double error) {
@@ -281,17 +278,17 @@ public class Neuron implements Serializable {
 		return this;
 	}
 
-	public IInputFunction getTransferFunction() {
-		return transferFunction;
+	public IInputFunction getInputFunction() {
+		return this.inputFunction;
 	}
 
 	public Neuron setInputFunction(IInputFunction inputFunction) {
-		this.transferFunction = inputFunction;
+		this.inputFunction = inputFunction;
 		return this;
 	}
 
 	public ActivationFunction getActivationFunction() {
-		return activationFunction;
+		return this.activationFunction;
 	}
 
 	public Neuron setActivationFunction(ActivationFunction activationFunction) {

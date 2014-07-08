@@ -46,7 +46,7 @@ public abstract class WeightsInitializer implements Serializable {
 	public void randomize(NeuralNetwork neuralnetwork) {
 		for (Layer layer : neuralnetwork.getLayers())
 			for (Neuron neuron : layer.getNeurons())
-				for (Synapse synapse : neuron.getInputs())
+				for (Synapse synapse : neuron.getInputConnections())
 					synapse.setWeight(this.raffleWeight());
 	}
 

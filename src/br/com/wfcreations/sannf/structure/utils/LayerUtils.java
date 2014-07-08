@@ -42,8 +42,9 @@ public class LayerUtils {
 
 	public static Layer createLayer(int neuronsCount, boolean bias) {
 		Layer layer = new Layer();
-		if (bias)
+		if (bias) {
 			layer.addNeuron(new BiasNeuron());
+		}
 		for (int i = 0; i < neuronsCount; i++)
 			layer.addNeuron(new Neuron());
 		return layer;
@@ -51,8 +52,9 @@ public class LayerUtils {
 
 	public static Layer createLayer(int neuronsCount, boolean bias, IInputFunction inputFunction, ActivationFunction activationFunction) {
 		Layer layer = new Layer();
-		if (bias)
+		if (bias) {
 			layer.addNeuron(new BiasNeuron());
+		}
 		for (int i = 0; i < neuronsCount; i++)
 			layer.addNeuron(new Neuron(inputFunction, activationFunction));
 		return layer;
@@ -60,17 +62,19 @@ public class LayerUtils {
 
 	public static Neuron[] getBiasNeurons(Layer layer) {
 		List<Neuron> neurons = new ArrayList<Neuron>();
-		for (Neuron neuron : layer.getNeurons())
+		for (Neuron neuron : layer.getNeurons()) {
 			if (neuron instanceof BiasNeuron)
 				neurons.add(neuron);
+		}
 		return neurons.toArray(new Neuron[neurons.size()]);
 	}
 
 	public static Neuron[] getNoBiasNeurons(Layer layer) {
 		List<Neuron> neurons = new ArrayList<Neuron>();
-		for (Neuron neuron : layer.getNeurons())
+		for (Neuron neuron : layer.getNeurons()) {
 			if (!(neuron instanceof BiasNeuron))
 				neurons.add(neuron);
+		}
 		return neurons.toArray(new Neuron[neurons.size()]);
 	}
 }

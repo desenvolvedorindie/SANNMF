@@ -29,6 +29,9 @@
  */
 package br.com.wfcreations.sannf.structure;
 
+import br.com.wfcreations.sannf.function.activation.ActivationFunction;
+import br.com.wfcreations.sannf.function.input.IInputFunction;
+
 public class InputNeuron extends Neuron {
 
 	private static final long serialVersionUID = 1L;
@@ -43,8 +46,33 @@ public class InputNeuron extends Neuron {
 	}
 
 	@Override
+	public double getOutput() {
+		return this.inducedLocalField;
+	}
+
+	@Override
 	public InputNeuron activate() {
 		this.output = this.inducedLocalField;
+		return this;
+	}
+
+	@Override
+	public Neuron setInputFunction(IInputFunction inputFunction) {
+		return this;
+	}
+
+	@Override
+	public Neuron setActivationFunction(ActivationFunction activationFunction) {
+		return this;
+	}
+
+	@Override
+	public double getError() {
+		return 0;
+	}
+
+	@Override
+	public Neuron setError(double error) {
 		return this;
 	}
 }

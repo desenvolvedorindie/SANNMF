@@ -38,8 +38,9 @@ public class WeightedSum implements IInputFunction {
 	@Override
 	public double output(Synapse[] inputs) {
 		double output = 0d;
-		for (Synapse connection : inputs)
-			output += connection.output();
+		for (Synapse synapse : inputs) {
+			output += synapse.getPresynaptic().getOutput() * synapse.getWeight();
+		}
 		return output;
 	}
 }

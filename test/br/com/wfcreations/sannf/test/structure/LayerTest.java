@@ -27,8 +27,8 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package br.com.wfcreations.sannf.test.neuralnetwork;
+package br.com.wfcreations.sannf.test.structure;
 
-public class NeuronTest {
+public class LayerTest {
 
 }

@@ -38,13 +38,13 @@ public class SynapseUtils {
 
 	public static Synapse createSynapse(Neuron presynaptical, Neuron postsynaptical) {
 		Synapse synapse = new Synapse(presynaptical, postsynaptical);
-		postsynaptical.addInputConnection(synapse);
+		postsynaptical.addInputSynapse(synapse);
 		return synapse;
 	}
 
 	public static Synapse createSynapse(Neuron presynaptcial, Neuron postsynaptical, double weight) {
 		Synapse connection = new Synapse(presynaptcial, postsynaptical, weight);
-		postsynaptical.addInputConnection(connection);
+		postsynaptical.addInputSynapse(connection);
 		return connection;
 	}
 
@@ -58,6 +58,7 @@ public class SynapseUtils {
 
 	public static void fullConnect(Layer fromLayer, Layer toLayer, boolean connectFromBias) {
 		for (Neuron presynaptical : fromLayer.getNeurons()) {
+
 			if (presynaptical instanceof BiasNeuron && !connectFromBias)
 				continue;
 			for (Neuron postsynaptical : toLayer.getNeurons()) {

@@ -53,14 +53,6 @@ public class Synapse implements Serializable {
 		this(presynaptic, postsynaptic, 0);
 	}
 
-	public double input() {
-		return this.presynaptic.output();
-	}
-
-	public double output() {
-		return this.input() * this.weight;
-	}
-
 	public double incrementWeight(double amout) {
 		this.weight += amout;
 		return this.weight;

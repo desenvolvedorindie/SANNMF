@@ -116,7 +116,7 @@ public abstract class NeuralNetwork {
 			output = new double[outputNeurons.length];
 		}
 		for (int i = 0; i < outputNeurons.length; i++)
-			output[i] = outputNeurons[i].output();
+			output[i] = outputNeurons[i].getOutput();
 		return output;
 	}
 
@@ -140,7 +140,7 @@ public abstract class NeuralNetwork {
 	public NeuralNetwork initializeWeights(double value) {
 		for (Layer layer : this.layers)
 			for (Neuron neuron : layer.getNeurons())
-				for (Synapse synapse : neuron.getInputs())
+				for (Synapse synapse : neuron.getInputConnections())
 					synapse.setWeight(value);
 		return this;
 	}

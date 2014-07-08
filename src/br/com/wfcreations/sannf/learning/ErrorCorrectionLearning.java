@@ -147,7 +147,7 @@ public abstract class ErrorCorrectionLearning extends IterativeLearning implemen
 		Layer[] layers = network.getLayers();
 		for (int i = network.layersNum() - 1; i > 0; i--)
 			for (Neuron neuron : layers[i].getNeurons())
-				for (Synapse synapse : neuron.getInputs()) {
+				for (Synapse synapse : neuron.getInputConnections()) {
 					synapse.incrementWeight(synapse.getWeightChange());
 					synapse.setWeightChange(0);
 				}

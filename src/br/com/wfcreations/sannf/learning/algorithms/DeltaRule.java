@@ -57,7 +57,7 @@ public class DeltaRule extends ErrorCorrectionLearning {
 	}
 
 	protected void updateNeuronWeights(Neuron neuron) {
-		for (Synapse synapse : neuron.getInputs()) {
+		for (Synapse synapse : neuron.getInputConnections()) {
 			double weightChange = weightChange(neuron, synapse);
 			if (this.batchMode)
 				synapse.setWeightChange(synapse.getWeightChange() + weightChange);
@@ -67,7 +67,7 @@ public class DeltaRule extends ErrorCorrectionLearning {
 	}
 
 	protected double weightChange(Neuron neuron, Synapse synapse) {
-		return this.learningRate * neuron.getError() * ((DerivativeActivationFunction) neuron.getActivationFunction()).derivative(neuron.inducedLocalField()) * synapse.input();
+		return this.learningRate * neuron.getError() * ((DerivativeActivationFunction) neuron.getActivationFunction()).derivative(neuron.getInducedLocalField()) * synapse.getPresynaptic().getOutput();
 	}
 
 	public double getLearningRate() {

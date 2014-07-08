@@ -57,7 +57,7 @@ public class Backpropagation extends DeltaRule {
 			}
 
 			DerivativeActivationFunction transferFunction = (DerivativeActivationFunction) neuron.getActivationFunction();
-			neuron.setError(outputError[i] * transferFunction.derivative(neuron.inducedLocalField()));
+			neuron.setError(outputError[i] * transferFunction.derivative(neuron.getInducedLocalField()));
 			this.updateNeuronWeights(neuron);
 			i++;
 		}
@@ -71,9 +71,9 @@ public class Backpropagation extends DeltaRule {
 
 	protected double calculateHiddenNeuronError(Neuron neuron) {
 		double deltaSum = 0d;
-		for (int i = 1; i < neuron.outputsNum(); i++)
-			deltaSum += neuron.getOutputAt(i).getPostsynaptic().getError() * neuron.getOutputAt(i).getWeight();
+		for (int i = 1; i < neuron.getOutputsNum(); i++)
+			deltaSum += neuron.getOutputConnectionAt(i).getPostsynaptic().getError() * neuron.getOutputConnectionAt(i).getWeight();
 		DerivativeActivationFunction transferFunction = (DerivativeActivationFunction) neuron.getActivationFunction();
-		return transferFunction.derivative(neuron.inducedLocalField()) * deltaSum;
+		return transferFunction.derivative(neuron.getInducedLocalField()) * deltaSum;
 	}
 }
