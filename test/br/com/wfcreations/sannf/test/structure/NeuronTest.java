@@ -38,18 +38,18 @@ import br.com.wfcreations.sannf.function.activation.ActivationFunction;
 import br.com.wfcreations.sannf.function.activation.Linear;
 import br.com.wfcreations.sannf.function.input.IInputFunction;
 import br.com.wfcreations.sannf.function.input.WeightedSum;
-import br.com.wfcreations.sannf.structure.InputNeuron;
-import br.com.wfcreations.sannf.structure.Layer;
-import br.com.wfcreations.sannf.structure.Neuron;
 import br.com.wfcreations.sannf.structure.Synapse;
+import br.com.wfcreations.sannf.structure.feedforward.InputNeuron;
+import br.com.wfcreations.sannf.structure.feedforward.ProcessorLayer;
+import br.com.wfcreations.sannf.structure.feedforward.ProcessorNeuron;
 
 public class NeuronTest {
 
 	InputNeuron n1, n2;
 
-	Neuron n3, n4;
+	ProcessorNeuron n3, n4;
 
-	Neuron n5;
+	ProcessorNeuron n5;
 
 	Synapse s13, s23, s14, s24, s35, s45;
 
@@ -64,9 +64,9 @@ public class NeuronTest {
 	public void setUp() {
 		n1 = new InputNeuron();
 		n2 = new InputNeuron();
-		n3 = new Neuron();
-		n4 = new Neuron();
-		n5 = new Neuron();
+		n3 = new ProcessorNeuron();
+		n4 = new ProcessorNeuron();
+		n5 = new ProcessorNeuron();
 
 		s13 = new Synapse(n1, n3, W13);
 		n1.addOutputSynapse(s13);
@@ -117,7 +117,7 @@ public class NeuronTest {
 		IInputFunction inputFunction = new WeightedSum();
 		ActivationFunction activationFunction = new Linear();
 
-		Neuron n = new Neuron(inputFunction, activationFunction);
+		ProcessorNeuron n = new ProcessorNeuron(inputFunction, activationFunction);
 
 		assertEquals(inputFunction, n.getInputFunction());
 		assertEquals(activationFunction, n.getActivationFunction());
@@ -277,16 +277,16 @@ public class NeuronTest {
 
 	@Test
 	public void getSynapse() {
-		assertEquals(s13, n3.getSynapsenFrom(n1));
+		assertEquals(s13, n3.getSynapseFrom(n1));
 		assertEquals(s13, n1.getSynapsenTo(n3));
 
-		assertNull(n1.getSynapsenFrom(n3));
+		assertNull(n1.getSynapseFrom(n3));
 		assertNull(n3.getSynapsenTo(n1));
 	}
 
 	@Test
 	public void layerTest() {
-		Layer layer = new Layer();
+		ProcessorLayer layer = new ProcessorLayer();
 		n5.setParentLayer(layer);
 		assertEquals(layer, n5.getParentLayer());
 	}

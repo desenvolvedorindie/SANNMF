@@ -30,10 +30,11 @@
 package br.com.wfcreations.sannf.function.input;
 
 import java.io.Serializable;
+import java.util.List;
 
-import br.com.wfcreations.sannf.structure.Synapse;
+import br.com.wfcreations.sannf.structure.ISynapse;
 
 public interface IInputFunction extends Serializable {
 
-	public double output(Synapse[] inputs);
+	public double output(List<ISynapse> inputs);
 }

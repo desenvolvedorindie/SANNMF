@@ -30,14 +30,17 @@
 package br.com.wfcreations.sannf.learning.algorithms;
 
 import br.com.wfcreations.sannf.function.activation.DerivativeActivationFunction;
-import br.com.wfcreations.sannf.neuralnetwork.NeuralNetwork;
-import br.com.wfcreations.sannf.structure.Neuron;
+import br.com.wfcreations.sannf.structure.INeuron;
+import br.com.wfcreations.sannf.structure.feedforward.AbstractOutputNeuron;
+import br.com.wfcreations.sannf.structure.feedforward.ErrorNeuron;
+import br.com.wfcreations.sannf.structure.feedforward.FeedforwardNeuralNetwork;
+import br.com.wfcreations.sannf.structure.feedforward.ProcessorNeuron;
 
 public class Backpropagation extends DeltaRule {
 
 	private static final long serialVersionUID = 1L;
 
-	public Backpropagation(NeuralNetwork network, double learnRate, boolean batchMode) {
+	public Backpropagation(FeedforwardNeuralNetwork network, double learnRate, boolean batchMode) {
 		super(network, learnRate, batchMode);
 	}
 
@@ -49,30 +52,37 @@ public class Backpropagation extends DeltaRule {
 
 	protected void calculateErrorAndUpdateOutputNeurons(double[] outputError) {
 		int i = 0;
-		for (Neuron neuron : network.getOutputNeurons()) {
-			if (outputError[i] == 0) {
-				neuron.setError(0);
-				i++;
-				continue;
-			}
+		ErrorNeuron errorNeuron;
+		for (AbstractOutputNeuron neuron : ((FeedforwardNeuralNetwork) network).getOutputNeurons()) {
+			if (neuron instanceof ErrorNeuron) {
+				errorNeuron = (ErrorNeuron) neuron;
+				if (outputError[i] == 0) {
+					errorNeuron.setError(0);
+					i++;
+					continue;
+				}
 
-			DerivativeActivationFunction transferFunction = (DerivativeActivationFunction) neuron.getActivationFunction();
-			neuron.setError(outputError[i] * transferFunction.derivative(neuron.getInducedLocalField()));
-			this.updateNeuronWeights(neuron);
-			i++;
+				DerivativeActivationFunction transferFunction = (DerivativeActivationFunction) errorNeuron.getActivationFunction();
+				errorNeuron.setError(outputError[i] * transferFunction.derivative(errorNeuron.getInducedLocalField()));
+				this.updateNeuronWeights(errorNeuron);
+				i++;
+			}
 		}
 	}
 
 	protected void calculateErrorAndUpdateHiddenNeurons() {
-		for (int i = network.getLayers().length - 2; i > 0; i--)
-			for (Neuron neuron : network.getLayers()[i].getNeurons())
-				this.updateNeuronWeights(neuron.setError(this.calculateHiddenNeuronError(neuron)));
+		for (int i = network.getLayersNum() - 2; i > 0; i--)
+			for (INeuron neuron : network.getLayerAt(i).getNeurons())
+				if (neuron instanceof ErrorNeuron) {
+					ErrorNeuron errorNeuron = (ErrorNeuron) neuron;
+					this.updateNeuronWeights(errorNeuron.setError(this.calculateHiddenNeuronError(errorNeuron)));
+				}
 	}
 
-	protected double calculateHiddenNeuronError(Neuron neuron) {
+	protected double calculateHiddenNeuronError(ProcessorNeuron neuron) {
 		double deltaSum = 0d;
 		for (int i = 1; i < neuron.getOutputsNum(); i++)
-			deltaSum += neuron.getOutputConnectionAt(i).getPostsynaptic().getError() * neuron.getOutputConnectionAt(i).getWeight();
+			deltaSum += ((ErrorNeuron) neuron.getOutputConnectionAt(i).getPostsynaptic()).getError() * neuron.getOutputConnectionAt(i).getWeight();
 		DerivativeActivationFunction transferFunction = (DerivativeActivationFunction) neuron.getActivationFunction();
 		return transferFunction.derivative(neuron.getInducedLocalField()) * deltaSum;
 	}

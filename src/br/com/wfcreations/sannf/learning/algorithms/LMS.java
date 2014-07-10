@@ -29,20 +29,21 @@
  */
 package br.com.wfcreations.sannf.learning.algorithms;
 
-import br.com.wfcreations.sannf.neuralnetwork.NeuralNetwork;
-import br.com.wfcreations.sannf.structure.Neuron;
-import br.com.wfcreations.sannf.structure.Synapse;
+import br.com.wfcreations.sannf.structure.ISynapse;
+import br.com.wfcreations.sannf.structure.feedforward.AbstractOutputNeuron;
+import br.com.wfcreations.sannf.structure.feedforward.ErrorNeuron;
+import br.com.wfcreations.sannf.structure.feedforward.FeedforwardNeuralNetwork;
 
 public class LMS extends DeltaRule {
 
 	private static final long serialVersionUID = 1L;
 
-	public LMS(NeuralNetwork network, double learnRate, boolean batchMode) {
+	public LMS(FeedforwardNeuralNetwork network, double learnRate, boolean batchMode) {
 		super(network, learnRate, batchMode);
 	}
 
 	@Override
-	protected double weightChange(Neuron neuron, Synapse synapse) {
-		return this.learningRate * neuron.getError() * synapse.getPresynaptic().getOutput();
+	protected double weightChange(ErrorNeuron neuron, ISynapse synapse) {
+		return this.learningRate * neuron.getError() * ((AbstractOutputNeuron) synapse.getPresynaptic()).getOutput();
 	}
 }

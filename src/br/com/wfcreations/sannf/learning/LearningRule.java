@@ -33,21 +33,21 @@ import java.io.Serializable;
 
 import br.com.wfcreations.observer.dispatcher.EventDispatcher;
 import br.com.wfcreations.observer.dispatcher.IEventListener;
-import br.com.wfcreations.sannf.neuralnetwork.NeuralNetwork;
+import br.com.wfcreations.sannf.structure.AbstractNeuralNetwork;
 
 public abstract class LearningRule implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	protected NeuralNetwork network;
+	protected AbstractNeuralNetwork network;
 
 	protected EventDispatcher eventDispatcher = new EventDispatcher();
 
-	public NeuralNetwork getNetwork() {
+	public AbstractNeuralNetwork getNetwork() {
 		return network;
 	}
 
-	public LearningRule setNetwork(NeuralNetwork network) {
+	public LearningRule setNetwork(AbstractNeuralNetwork network) {
 		this.network = network;
 		return this;
 	}

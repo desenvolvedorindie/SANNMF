@@ -32,10 +32,11 @@ package br.com.wfcreations.sannf.function.weightinitialization;
 import java.io.Serializable;
 import java.util.Random;
 
-import br.com.wfcreations.sannf.neuralnetwork.NeuralNetwork;
-import br.com.wfcreations.sannf.structure.Layer;
-import br.com.wfcreations.sannf.structure.Neuron;
-import br.com.wfcreations.sannf.structure.Synapse;
+import br.com.wfcreations.sannf.structure.ILayer;
+import br.com.wfcreations.sannf.structure.INeuralNetwork;
+import br.com.wfcreations.sannf.structure.INeuron;
+import br.com.wfcreations.sannf.structure.ISynapse;
+import br.com.wfcreations.sannf.structure.feedforward.ProcessorNeuron;
 
 public abstract class WeightsInitializer implements Serializable {
 
@@ -43,11 +44,12 @@ public abstract class WeightsInitializer implements Serializable {
 
 	protected Random random = new Random();
 
-	public void randomize(NeuralNetwork neuralnetwork) {
-		for (Layer layer : neuralnetwork.getLayers())
-			for (Neuron neuron : layer.getNeurons())
-				for (Synapse synapse : neuron.getInputConnections())
-					synapse.setWeight(this.raffleWeight());
+	public void randomize(INeuralNetwork neuralnetwork) {
+		for (ILayer layer : neuralnetwork.getLayers())
+			for (INeuron neuron : layer.getNeurons())
+				if (neuron instanceof ProcessorNeuron)
+					for (ISynapse synapse : ((ProcessorNeuron) neuron).getInputConnections())
+						synapse.setWeight(this.raffleWeight());
 	}
 
 	public abstract double raffleWeight();

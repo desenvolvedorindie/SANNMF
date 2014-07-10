@@ -27,33 +27,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package br.com.wfcreations.sannf.structure.recurrents;
+package br.com.wfcreations.sannf.structure.feedforward;
 
-import br.com.wfcreations.sannf.structure.Neuron;
-import br.com.wfcreations.sannf.structure.Synapse;
 
-public class TemportalSynapse extends Synapse {
+public class InputNeuron extends AbstractOutputNeuron {
 
 	private static final long serialVersionUID = 1L;
 
-	private int delay;
-
-	public TemportalSynapse(Neuron presynaptic, Neuron postsynaptic, double weight, int delay) {
-		super(presynaptic, postsynaptic, weight);
-		this.delay = delay;
+	public InputNeuron() {
 	}
 
-	public TemportalSynapse(Neuron presynaptic, Neuron postsynaptic, int delay) {
-		super(presynaptic, postsynaptic);
-		this.delay = delay;
-	}
-
-	public int getDelay() {
-		return delay;
-	}
-
-	public TemportalSynapse setDelay(int delay) {
-		this.delay = delay;
+	public InputNeuron setInput(double input) {
+		this.output = input;
 		return this;
+	}
+
+	@Override
+	public double getOutput() {
+		return this.output;
 	}
 }

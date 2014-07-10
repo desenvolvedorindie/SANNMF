@@ -34,47 +34,39 @@ import java.util.List;
 
 import br.com.wfcreations.sannf.function.activation.ActivationFunction;
 import br.com.wfcreations.sannf.function.input.IInputFunction;
-import br.com.wfcreations.sannf.structure.BiasNeuron;
-import br.com.wfcreations.sannf.structure.Layer;
-import br.com.wfcreations.sannf.structure.Neuron;
+import br.com.wfcreations.sannf.structure.INeuron;
+import br.com.wfcreations.sannf.structure.feedforward.BiasNeuron;
+import br.com.wfcreations.sannf.structure.feedforward.ProcessorLayer;
+import br.com.wfcreations.sannf.structure.feedforward.ProcessorNeuron;
 
 public class LayerUtils {
 
-	public static Layer createLayer(int neuronsCount, boolean bias) {
-		Layer layer = new Layer();
+	public static ProcessorLayer createLayer(int neuronsCount, boolean bias) {
+		ProcessorLayer layer = new ProcessorLayer();
 		if (bias) {
 			layer.addNeuron(new BiasNeuron());
 		}
 		for (int i = 0; i < neuronsCount; i++)
-			layer.addNeuron(new Neuron());
+			layer.addNeuron(new ProcessorNeuron());
 		return layer;
 	}
 
-	public static Layer createLayer(int neuronsCount, boolean bias, IInputFunction inputFunction, ActivationFunction activationFunction) {
-		Layer layer = new Layer();
+	public static ProcessorLayer createLayer(int neuronsCount, boolean bias, IInputFunction inputFunction, ActivationFunction activationFunction) {
+		ProcessorLayer layer = new ProcessorLayer();
 		if (bias) {
 			layer.addNeuron(new BiasNeuron());
 		}
 		for (int i = 0; i < neuronsCount; i++)
-			layer.addNeuron(new Neuron(inputFunction, activationFunction));
+			layer.addNeuron(new ProcessorNeuron(inputFunction, activationFunction));
 		return layer;
 	}
 
-	public static Neuron[] getBiasNeurons(Layer layer) {
-		List<Neuron> neurons = new ArrayList<Neuron>();
-		for (Neuron neuron : layer.getNeurons()) {
+	public static BiasNeuron[] getBiasNeurons(ProcessorLayer layer) {
+		List<BiasNeuron> neurons = new ArrayList<BiasNeuron>();
+		for (INeuron neuron : layer.getNeurons()) {
 			if (neuron instanceof BiasNeuron)
-				neurons.add(neuron);
+				neurons.add((BiasNeuron) neuron);
 		}
-		return neurons.toArray(new Neuron[neurons.size()]);
-	}
-
-	public static Neuron[] getNoBiasNeurons(Layer layer) {
-		List<Neuron> neurons = new ArrayList<Neuron>();
-		for (Neuron neuron : layer.getNeurons()) {
-			if (!(neuron instanceof BiasNeuron))
-				neurons.add(neuron);
-		}
-		return neurons.toArray(new Neuron[neurons.size()]);
+		return neurons.toArray(new BiasNeuron[neurons.size()]);
 	}
 }

@@ -29,18 +29,22 @@
  */
 package br.com.wfcreations.sannf.function.input;
 
-import br.com.wfcreations.sannf.structure.Synapse;
+import java.util.List;
+
+import br.com.wfcreations.sannf.structure.ISynapse;
+import br.com.wfcreations.sannf.structure.feedforward.AbstractOutputNeuron;
+import br.com.wfcreations.sannf.structure.feedforward.IOutputtedNeuron;
 
 public class WeightedSum implements IInputFunction {
 
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public double output(Synapse[] inputs) {
-		double output = 0d;
-		for (Synapse synapse : inputs) {
-			output += synapse.getPresynaptic().getOutput() * synapse.getWeight();
-		}
+	public double output(List<ISynapse> inputSynapses) {
+		double output = 0;
+		for (ISynapse synapse : inputSynapses)
+			if (synapse.getPresynaptic() instanceof IOutputtedNeuron)
+				output += ((AbstractOutputNeuron) synapse.getPresynaptic()).getOutput() * synapse.getWeight();
 		return output;
 	}
 }

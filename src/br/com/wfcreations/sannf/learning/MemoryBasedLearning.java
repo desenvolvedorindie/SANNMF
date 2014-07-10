@@ -30,13 +30,13 @@
 package br.com.wfcreations.sannf.learning;
 
 import br.com.wfcreations.sannf.data.SupervisedSet;
-import br.com.wfcreations.sannf.neuralnetwork.NeuralNetwork;
+import br.com.wfcreations.sannf.structure.AbstractNeuralNetwork;
 
 public abstract class MemoryBasedLearning implements SupervisedLearning {
 
 	private static final long serialVersionUID = 1L;
 
-	public MemoryBasedLearning(NeuralNetwork network) {
+	public MemoryBasedLearning(AbstractNeuralNetwork network) {
 
 	}
 

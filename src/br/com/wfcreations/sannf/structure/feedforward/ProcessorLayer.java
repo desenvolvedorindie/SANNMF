@@ -27,18 +27,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package br.com.wfcreations.sannf.structure;
+package br.com.wfcreations.sannf.structure.feedforward;
 
-public class BiasNeuron extends InputNeuron {
+import br.com.wfcreations.sannf.structure.AbstractLayer;
+import br.com.wfcreations.sannf.structure.INeuron;
+
+public class ProcessorLayer extends AbstractLayer {
 
 	private static final long serialVersionUID = 1L;
 
-	public BiasNeuron() {
-		super();
+	public ProcessorLayer activate() {
+		for (INeuron neuron : this.neurons)
+			if (neuron instanceof ProcessorNeuron)
+				((ProcessorNeuron) neuron).activate();
+		return this;
 	}
 
-	@Override
-	public double getOutput() {
-		return 1;
+	public ProcessorLayer reset() {
+		for (INeuron neuron : this.neurons)
+			if (neuron instanceof ProcessorNeuron)
+				((ProcessorNeuron) neuron).reset();
+		return this;
 	}
 }

@@ -27,55 +27,43 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package br.com.wfcreations.sannf.neuralnetwork.models;
+package br.com.wfcreations.sannf.neuralnetwork;
 
-import br.com.wfcreations.sannf.function.activation.DerivativeActivationFunction;
+import br.com.wfcreations.sannf.function.activation.ActivationFunction;
+import br.com.wfcreations.sannf.function.activation.Sign;
 import br.com.wfcreations.sannf.function.input.WeightedSum;
-import br.com.wfcreations.sannf.neuralnetwork.NeuralNetwork;
-import br.com.wfcreations.sannf.structure.BiasNeuron;
-import br.com.wfcreations.sannf.structure.InputLayer;
-import br.com.wfcreations.sannf.structure.Layer;
+import br.com.wfcreations.sannf.structure.feedforward.AbstractOutputNeuron;
+import br.com.wfcreations.sannf.structure.feedforward.BiasNeuron;
+import br.com.wfcreations.sannf.structure.feedforward.FeedforwardNeuralNetwork;
+import br.com.wfcreations.sannf.structure.feedforward.InputLayer;
+import br.com.wfcreations.sannf.structure.feedforward.InputNeuron;
+import br.com.wfcreations.sannf.structure.feedforward.ProcessorLayer;
 import br.com.wfcreations.sannf.structure.utils.LayerUtils;
-import br.com.wfcreations.sannf.structure.utils.SynapseUtils;
 
-public class MLP extends NeuralNetwork {
+public class Perceptron extends FeedforwardNeuralNetwork {
 
-	public MLP(int inputs, int[] hiddens, int outputs, boolean bias, DerivativeActivationFunction activationFunction, boolean connectInputsToOutputs) {
-		if (inputs < 1)
-			throw new IllegalArgumentException("Inputs must be greater than 0");
-		if (outputs < 1)
-			throw new IllegalArgumentException("Outputs must be greater than 0");
+	private static final long serialVersionUID = 1L;
+
+	public Perceptron(int inputs, int outputs, boolean hasBias) {
+		this(inputs, outputs, hasBias, new Sign());
+	}
+
+	public Perceptron(int inputs, int outputs, boolean hasBias, ActivationFunction activationFunction) {
+		if (inputs < -1)
+			throw new IllegalArgumentException("Inputs must be greater then 0");
+		if (outputs < -1)
+			throw new IllegalArgumentException("Outputs must be greater then 0");
 		if (activationFunction == null)
 			throw new IllegalArgumentException("Activation function can't be null");
-		if (hiddens == null)
-			throw new IllegalArgumentException("Hiddens can't be null");
-		if (hiddens.length == 0)
-			throw new IllegalArgumentException("Must have at least one layer");
-		for (int n : hiddens)
-			if (n < 1)
-				throw new IllegalArgumentException("Hiddens have at least one neuron");
 
 		InputLayer inputLayer = new InputLayer(inputs, false);
+		ProcessorLayer outputLayer = LayerUtils.createLayer(outputs, false, new WeightedSum(), activationFunction);
 		this.addLayer(inputLayer);
-
-		for (int n : hiddens)
-			this.addLayer(LayerUtils.createLayer(n, false, new WeightedSum(), activationFunction));
-
-		Layer outputLayer = LayerUtils.createLayer(outputs, false, new WeightedSum(), activationFunction);
 		this.addLayer(outputLayer);
-
-		this.inputNeurons = inputLayer.getNeurons();
-		this.outputNeurons = outputLayer.getNeurons();
-
-		if (bias)
-			for (int i = 0; i < this.layersNum() - 1; i++)
-				this.getLayerAt(i).addNeuronAt(new BiasNeuron(), 0);
-
-		for (int i = 0; i < this.layersNum() - 1; i++) {
-			SynapseUtils.fullConnect(this.getLayerAt(i), this.getLayerAt(i + 1));
-		}
-
-		if (connectInputsToOutputs)
-			SynapseUtils.fullConnect(this.getLayerAt(0), this.getLayerAt(this.layersNum() - 1), false);
+		this.inputNeurons = inputLayer.getNeurons().toArray(new InputNeuron[inputLayer.getNeuronsNum()]);
+		this.outputNeurons = outputLayer.getNeurons().toArray(new AbstractOutputNeuron[outputLayer.getNeuronsNum()]);
+		if (hasBias)
+			inputLayer.addNeuronAt(0, new BiasNeuron());
+		// SynapseUtils.fullConnect(inputLayer, outputLayer);
 	}
 }

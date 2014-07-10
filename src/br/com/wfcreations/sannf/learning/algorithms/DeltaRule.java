@@ -31,9 +31,10 @@ package br.com.wfcreations.sannf.learning.algorithms;
 
 import br.com.wfcreations.sannf.function.activation.DerivativeActivationFunction;
 import br.com.wfcreations.sannf.function.error.MSE;
-import br.com.wfcreations.sannf.neuralnetwork.NeuralNetwork;
-import br.com.wfcreations.sannf.structure.Neuron;
-import br.com.wfcreations.sannf.structure.Synapse;
+import br.com.wfcreations.sannf.structure.ISynapse;
+import br.com.wfcreations.sannf.structure.feedforward.AbstractOutputNeuron;
+import br.com.wfcreations.sannf.structure.feedforward.ErrorNeuron;
+import br.com.wfcreations.sannf.structure.feedforward.FeedforwardNeuralNetwork;
 import br.com.wfcreations.sannf.learning.ErrorCorrectionLearning;
 
 public class DeltaRule extends ErrorCorrectionLearning {
@@ -42,9 +43,9 @@ public class DeltaRule extends ErrorCorrectionLearning {
 
 	protected double learningRate = 0.1;
 
-	public DeltaRule(NeuralNetwork network, double learnRate, boolean batchMode) {
+	public DeltaRule(FeedforwardNeuralNetwork network, double learnRate, boolean batchMode) {
 		super(network, batchMode, new MSE());
-		if (network.layersNum() != 2)
+		if (network.getLayersNum() != 2)
 			throw new IllegalArgumentException("This algorithm only suport single-layer");
 		this.setLearningRate(learnRate);
 	}
@@ -52,12 +53,13 @@ public class DeltaRule extends ErrorCorrectionLearning {
 	@Override
 	protected void updateNetworkWeights(double[] outputError) {
 		int i = 0;
-		for (Neuron neuron : network.getOutputNeurons())
-			this.updateNeuronWeights(neuron.setError(outputError[i++]));
+		for (AbstractOutputNeuron neuron : ((FeedforwardNeuralNetwork) network).getOutputNeurons())
+			if (neuron instanceof ErrorNeuron)
+				this.updateNeuronWeights(((ErrorNeuron) neuron).setError(outputError[i++]));
 	}
 
-	protected void updateNeuronWeights(Neuron neuron) {
-		for (Synapse synapse : neuron.getInputConnections()) {
+	protected void updateNeuronWeights(ErrorNeuron neuron) {
+		for (ISynapse synapse : neuron.getInputConnections()) {
 			double weightChange = weightChange(neuron, synapse);
 			if (this.batchMode)
 				synapse.setWeightChange(synapse.getWeightChange() + weightChange);
@@ -66,8 +68,8 @@ public class DeltaRule extends ErrorCorrectionLearning {
 		}
 	}
 
-	protected double weightChange(Neuron neuron, Synapse synapse) {
-		return this.learningRate * neuron.getError() * ((DerivativeActivationFunction) neuron.getActivationFunction()).derivative(neuron.getInducedLocalField()) * synapse.getPresynaptic().getOutput();
+	protected double weightChange(ErrorNeuron neuron, ISynapse synapse) {
+		return this.learningRate * neuron.getError() * ((DerivativeActivationFunction) neuron.getActivationFunction()).derivative(neuron.getInducedLocalField()) * ((AbstractOutputNeuron) synapse.getPresynaptic()).getOutput();
 	}
 
 	public double getLearningRate() {

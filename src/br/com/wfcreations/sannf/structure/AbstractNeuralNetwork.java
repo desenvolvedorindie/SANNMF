@@ -29,16 +29,65 @@
  */
 package br.com.wfcreations.sannf.structure;
 
-public class InputLayer extends Layer {
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.wfcreations.sannf.function.weightinitialization.WeightsInitializer;
+
+public abstract class AbstractNeuralNetwork implements INeuralNetwork {
 
 	private static final long serialVersionUID = 1L;
 
-	public InputLayer(int neuronsCount, boolean bias) {
-		if (neuronsCount < 0)
-			throw new IllegalArgumentException("Must be geater then 0");
-		if (bias)
-			this.addNeuron(new BiasNeuron());
-		for (int i = 0; i < neuronsCount; i++)
-			this.addNeuron(new InputNeuron());
+	protected List<ILayer> layers = new ArrayList<ILayer>();
+
+	@Override
+	public boolean addLayer(ILayer layer) {
+		layer.setParentNeuralNetwork(this);
+		return this.layers.add(layer);
 	}
+
+	@Override
+	public AbstractNeuralNetwork addLayerAt(int index, ILayer layer) {
+		layer.setParentNeuralNetwork(this);
+		return this.addLayerAt(index, layer);
+	}
+
+	@Override
+	public boolean removeLayer(ILayer layer) {
+		layer.setParentNeuralNetwork(null);
+		return this.layers.remove(layer);
+	}
+
+	@Override
+	public ILayer removeLayerAt(int index) {
+		return this.layers.remove(index);
+	}
+
+	@Override
+	public List<ILayer> getLayers() {
+		return this.layers;
+	}
+
+	@Override
+	public ILayer getLayerAt(int index) {
+		return this.layers.get(index);
+	}
+
+	@Override
+	public int indexOf(ILayer layer) {
+		return this.layers.indexOf(layer);
+	}
+
+	@Override
+	public int getLayersNum() {
+		return this.layers.size();
+	}
+
+	@Override
+	public AbstractNeuralNetwork initializeWeights(WeightsInitializer weightInitializer) {
+		weightInitializer.randomize(this);
+		return this;
+	}
+
+	public abstract AbstractNeuralNetwork initializeWeights(double value);
 }

@@ -29,84 +29,81 @@
  */
 package br.com.wfcreations.sannf.structure;
 
-import java.io.Serializable;
-
-public class Synapse implements Serializable {
+public class Synapse implements ISynapse {
 
 	private static final long serialVersionUID = 1L;
 
-	protected Neuron presynaptic;
+	protected INeuron presynaptic;
 
-	protected Neuron postsynaptic;
+	protected INeuron postsynaptic;
 
 	protected double weight;
 
 	protected transient double weightChange;
 
-	protected transient Object data;
-
-	public Synapse(Neuron presynaptic, Neuron postsynaptic, double weight) {
+	public Synapse(INeuron presynaptic, INeuron postsynaptic, double weight) {
 		this.setPresynaptic(presynaptic).setPostsynaptic(postsynaptic).setWeight(weight);
 	}
 
-	public Synapse(Neuron presynaptic, Neuron postsynaptic) {
+	public Synapse(INeuron presynaptic, INeuron postsynaptic) {
 		this(presynaptic, postsynaptic, 0);
 	}
 
+	@Override
 	public double incrementWeight(double amout) {
 		this.weight += amout;
 		return this.weight;
 	}
 
+	@Override
 	public double decrementWeight(double amout) {
 		this.weight -= amout;
 		return this.weight;
 	}
 
-	public Neuron getPresynaptic() {
+	@Override
+	public INeuron getPresynaptic() {
 		return presynaptic;
 	}
 
-	public Synapse setPresynaptic(Neuron presynaptic) {
+	@Override
+	public Synapse setPresynaptic(INeuron presynaptic) {
 		if (presynaptic == null)
 			throw new IllegalArgumentException("Presynaptic neuron can't be null");
 		this.presynaptic = presynaptic;
 		return this;
 	}
 
-	public Neuron getPostsynaptic() {
+	@Override
+	public INeuron getPostsynaptic() {
 		return postsynaptic;
 	}
 
-	public Synapse setPostsynaptic(Neuron postsynaptic) {
+	@Override
+	public Synapse setPostsynaptic(INeuron postsynaptic) {
 		if (postsynaptic == null)
 			throw new IllegalArgumentException("Postsynaptic neuron can't be null");
 		this.postsynaptic = postsynaptic;
 		return this;
 	}
 
+	@Override
 	public double getWeight() {
 		return weight;
 	}
 
+	@Override
 	public Synapse setWeight(double weight) {
 		this.weight = weight;
 		return this;
 	}
 
-	public Object getData() {
-		return data;
-	}
-
-	public Synapse setData(Object data) {
-		this.data = data;
-		return this;
-	}
-
+	@Override
 	public double getWeightChange() {
 		return weightChange;
 	}
 
+	@Override
 	public Synapse setWeightChange(double weightChange) {
 		this.weightChange = weightChange;
 		return this;

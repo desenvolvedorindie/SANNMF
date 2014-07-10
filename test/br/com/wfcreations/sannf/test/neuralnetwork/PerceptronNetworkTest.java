@@ -43,7 +43,7 @@ import br.com.wfcreations.sannf.learning.algorithms.LMS;
 import br.com.wfcreations.sannf.learning.stopcondition.IStopCondition;
 import br.com.wfcreations.sannf.learning.stopcondition.MaximumEpoch;
 import br.com.wfcreations.sannf.learning.stopcondition.MaximumError;
-import br.com.wfcreations.sannf.neuralnetwork.models.Perceptron;
+import br.com.wfcreations.sannf.neuralnetwork.Perceptron;
 
 public class PerceptronNetworkTest {
 
@@ -53,7 +53,7 @@ public class PerceptronNetworkTest {
 		perceptron.getLayerAt(1).getNeuronAt(0).getInputConnectionAt(0).setWeight(-0.8);
 		perceptron.getLayerAt(1).getNeuronAt(0).getInputConnectionAt(1).setWeight(0.5);
 		perceptron.getLayerAt(1).getNeuronAt(0).getInputConnectionAt(2).setWeight(0.5);
-		System.out.println(Arrays.toString(perceptron.setInput(0, 0).activate().getOutputs()));
+		System.out.println(Arrays.toString(perceptron.setInput(0, 0).activate().getOutput()));
 	}
 
 	@Test
@@ -78,10 +78,10 @@ public class PerceptronNetworkTest {
 		System.out.println("PreviousEpochError: " + deltaRule.getPreviousEpochError());
 		System.out.println("Epochs: " + deltaRule.getCurrentEpoch());
 		System.out.println("LearRate: " + deltaRule.getLearningRate());
-		System.out.println("[1,1]: " + Arrays.toString(perceptron.setInput(1, 1).activate().getOutputs()));
-		System.out.println("[1,-1]: " + Arrays.toString(perceptron.setInput(1, -1).activate().getOutputs()));
-		System.out.println("[-1,1]: " + Arrays.toString(perceptron.setInput(-1, 1).activate().getOutputs()));
-		System.out.println("[-1,-1]: " + Arrays.toString(perceptron.setInput(-1, -1).activate().getOutputs()));
+		System.out.println("[1,1]: " + Arrays.toString(perceptron.setInput(1, 1).activate().getOutput()));
+		System.out.println("[1,-1]: " + Arrays.toString(perceptron.setInput(1, -1).activate().getOutput()));
+		System.out.println("[-1,1]: " + Arrays.toString(perceptron.setInput(-1, 1).activate().getOutput()));
+		System.out.println("[-1,-1]: " + Arrays.toString(perceptron.setInput(-1, -1).activate().getOutput()));
 	}
 
 }

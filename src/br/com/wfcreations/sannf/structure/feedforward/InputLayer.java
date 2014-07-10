@@ -27,57 +27,20 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package br.com.wfcreations.sannf.structure.recurrents;
+package br.com.wfcreations.sannf.structure.feedforward;
 
-import java.util.Arrays;
+import br.com.wfcreations.sannf.structure.AbstractLayer;
 
-import br.com.wfcreations.sannf.function.activation.ActivationFunction;
-import br.com.wfcreations.sannf.function.input.IInputFunction;
-import br.com.wfcreations.sannf.structure.Neuron;
-
-public class TemporalNeuron extends Neuron {
+public class InputLayer extends AbstractLayer {
 
 	private static final long serialVersionUID = 1L;
 
-	protected transient double[] history;
-
-	private int historySize;
-
-	public TemporalNeuron(IInputFunction inputFunction, ActivationFunction activationFunction, int historySize) {
-		super(inputFunction, activationFunction);
-		this.setHistorySize(historySize);
-		history = new double[0];
-		history[0] = 0;
-	}
-
-	@Override
-	public TemporalNeuron activate() {
-		super.activate();
-		if (history.length < getHistorySize())
-			this.history = Arrays.copyOf(history, history.length + 1);
-		for (int j = inputs.length - 1; j > 0; j--)
-			history[j] = history[j - 1];
-		history[0] = this.output;
-		return this;
-	}
-
-	public double output(int delay) {
-		return history[delay];
-	}
-
-	public int lenght() {
-		return this.history.length;
-	}
-
-	public int getHistorySize() {
-		return historySize;
-	}
-
-	public void setHistorySize(int historySize) {
-		if (historySize < 1)
-			throw new IllegalArgumentException("Must be greater 0");
-		if (historySize < this.history.length)
-			this.history = Arrays.copyOf(history, historySize);
-		this.historySize = historySize;
+	public InputLayer(int neuronsCount, boolean bias) {
+		if (neuronsCount < 0)
+			throw new IllegalArgumentException("Must be geater then 0");
+		if (bias)
+			this.addNeuron(new BiasNeuron());
+		for (int i = 0; i < neuronsCount; i++)
+			this.addNeuron(new InputNeuron());
 	}
 }

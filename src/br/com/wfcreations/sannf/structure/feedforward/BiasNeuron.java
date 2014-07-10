@@ -27,52 +27,18 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package br.com.wfcreations.sannf.structure;
+package br.com.wfcreations.sannf.structure.feedforward;
 
-import br.com.wfcreations.sannf.function.activation.ActivationFunction;
-import br.com.wfcreations.sannf.function.input.IInputFunction;
 
-public class InputNeuron extends Neuron {
+public class BiasNeuron extends AbstractOutputNeuron {
 
 	private static final long serialVersionUID = 1L;
 
-	public InputNeuron() {
-		super(null, null);
-	}
-
-	public InputNeuron setInput(double input) {
-		this.inducedLocalField = input;
-		return this;
+	public BiasNeuron() {
 	}
 
 	@Override
 	public double getOutput() {
-		return this.inducedLocalField;
-	}
-
-	@Override
-	public InputNeuron activate() {
-		this.output = this.inducedLocalField;
-		return this;
-	}
-
-	@Override
-	public Neuron setInputFunction(IInputFunction inputFunction) {
-		return this;
-	}
-
-	@Override
-	public Neuron setActivationFunction(ActivationFunction activationFunction) {
-		return this;
-	}
-
-	@Override
-	public double getError() {
-		return 0;
-	}
-
-	@Override
-	public Neuron setError(double error) {
-		return this;
+		return 1;
 	}
 }
