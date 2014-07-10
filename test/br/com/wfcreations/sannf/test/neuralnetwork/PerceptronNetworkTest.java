@@ -50,10 +50,6 @@ public class PerceptronNetworkTest {
 	@Test
 	public void createPerceptronTest() {
 		Perceptron perceptron = new Perceptron(2, 1, true, new Sign());
-		perceptron.getLayerAt(1).getNeuronAt(0).getInputConnectionAt(0).setWeight(-0.8);
-		perceptron.getLayerAt(1).getNeuronAt(0).getInputConnectionAt(1).setWeight(0.5);
-		perceptron.getLayerAt(1).getNeuronAt(0).getInputConnectionAt(2).setWeight(0.5);
-		System.out.println(Arrays.toString(perceptron.setInput(0, 0).activate().getOutput()));
 	}
 
 	@Test

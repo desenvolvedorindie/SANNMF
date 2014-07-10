@@ -95,12 +95,9 @@ public class NeuronTest {
 
 	@Test
 	public void testSetup() {
-		assertNull(n1.getInputFunction());
 		assertTrue(n3.getActivationFunction() instanceof Linear);
 		assertTrue(n3.getInputFunction() instanceof WeightedSum);
 
-		assertEquals(0, n1.getInducedLocalField(), 0);
-		assertEquals(0, n2.getInducedLocalField(), 0);
 		assertEquals(0, n3.getInducedLocalField(), 0);
 		assertEquals(0, n4.getInducedLocalField(), 0);
 		assertEquals(0, n5.getInducedLocalField(), 0);
@@ -146,35 +143,19 @@ public class NeuronTest {
 
 	@Test
 	public void testReset() {
-		n1.reset();
+		n3.reset();
 
-		assertEquals(0, n1.getInducedLocalField(), 0);
-		assertEquals(0, n1.getOutput(), 0);
-	}
-
-	@Test
-	public void testError() {
-		n1.setError(10.2);
-
-		assertEquals(0, n1.getError(), 0);
-
-		assertEquals(0, n1.getError(), 0);
-		assertEquals(0, n2.getError(), 0);
-		assertEquals(0, n3.getError(), 0);
-		assertEquals(0, n4.getError(), 0);
-		assertEquals(0, n5.getError(), 0);
-
-		n5.setError(10.2);
-		assertEquals(10.2, n5.getError(), 0);
+		assertEquals(0, n3.getInducedLocalField(), 0);
+		assertEquals(0, n3.getOutput(), 0);
 	}
 
 	@Test
 	public void testFunctions() {
-		n1.setActivationFunction(new Linear());
-		n1.setInputFunction(new WeightedSum());
+		n3.setActivationFunction(new Linear());
+		n3.setInputFunction(new WeightedSum());
 
-		assertNull(n1.getActivationFunction());
-		assertNull(n1.getInputFunction());
+		assertNotNull(n3.getActivationFunction());
+		assertNotNull(n3.getInputFunction());
 
 		ActivationFunction linear = new Linear();
 		IInputFunction weightedSum = new WeightedSum();
@@ -188,8 +169,6 @@ public class NeuronTest {
 
 	@Test
 	public void testConnections() {
-		assertEquals(0, n1.getInputsNum());
-		assertEquals(0, n2.getInputsNum());
 		assertEquals(2, n3.getInputsNum());
 		assertEquals(2, n4.getInputsNum());
 		assertEquals(2, n5.getInputsNum());
@@ -200,8 +179,6 @@ public class NeuronTest {
 		assertEquals(1, n4.getOutputsNum());
 		assertEquals(0, n5.getOutputsNum());
 
-		assertFalse(n1.hasInputConnection());
-		assertFalse(n2.hasInputConnection());
 		assertTrue(n1.hasOutputConnection());
 		assertTrue(n2.hasOutputConnection());
 		assertTrue(n3.hasInputConnection());
@@ -231,11 +208,11 @@ public class NeuronTest {
 		assertEquals(n1.getOutputConnectionAt(0), s13);
 		assertEquals(n3.getInputConnectionAt(0), s13);
 
-		assertEquals(n1.getOutputConnections()[0], s13);
-		assertEquals(n1.getOutputConnections()[1], s14);
+		assertEquals(n1.getOutputConnectionAt(0), s13);
+		assertEquals(n1.getOutputConnectionAt(1), s14);
 
-		assertEquals(n3.getInputConnections()[0], s13);
-		assertEquals(n3.getInputConnections()[1], s23);
+		assertEquals(n3.getInputConnectionAt(0), s13);
+		assertEquals(n3.getInputConnectionAt(1), s23);
 
 		boolean resultRemoveOutput = n1.removeAllOutputConnections();
 		boolean resultRemoveInput = n5.removeAllInputConnections();
@@ -280,7 +257,6 @@ public class NeuronTest {
 		assertEquals(s13, n3.getSynapseFrom(n1));
 		assertEquals(s13, n1.getSynapsenTo(n3));
 
-		assertNull(n1.getSynapseFrom(n3));
 		assertNull(n3.getSynapsenTo(n1));
 	}
 
@@ -298,17 +274,17 @@ public class NeuronTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void addInputConnectionNull() {
-		n1.addInputSynapse(null);
+		n3.addInputSynapse(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void addInputConnectionNotConnected() {
-		n1.addInputSynapse(s35);
+		n3.addInputSynapse(s35);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void removeInputConnectionConnectionNul() {
-		n1.removeInputConnection(null);
+		n3.removeInputConnection(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)

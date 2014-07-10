@@ -97,8 +97,8 @@ public class ProcessorNeuron extends InputNeuron implements IInputtedNeuron {
 	public boolean hasConnectionFrom(INeuron neuron) {
 		if (neuron == null)
 			throw new IllegalArgumentException("Neuron can't be null");
-		for (ISynapse synapser : inputSynapses)
-			if (synapser.getPresynaptic() == neuron)
+		for (ISynapse synapse : inputSynapses)
+			if (synapse.getPresynaptic() == neuron)
 				return true;
 		return false;
 	}
@@ -111,7 +111,7 @@ public class ProcessorNeuron extends InputNeuron implements IInputtedNeuron {
 			throw new IllegalArgumentException("Postsynaptical neuron should connect to this");
 
 		if (!this.hasConnectionFrom(synapse.getPresynaptic())) {
-			return this.inputSynapses.remove(synapse);
+			return this.inputSynapses.add(synapse);
 		}
 		return false;
 	}
@@ -144,7 +144,7 @@ public class ProcessorNeuron extends InputNeuron implements IInputtedNeuron {
 
 	@Override
 	public boolean removeAllInputConnections() {
-		boolean changed = this.outputSynapses.size() > 0;
+		boolean changed = this.inputSynapses.size() > 0;
 		this.inputSynapses.clear();
 		return changed;
 	}
@@ -179,7 +179,9 @@ public class ProcessorNeuron extends InputNeuron implements IInputtedNeuron {
 	}
 
 	public boolean removeAllConnections() {
-		return this.removeAllInputConnections() || this.removeAllOutputConnections();
+		boolean r1 = this.removeAllInputConnections();
+		boolean r2 = this.removeAllOutputConnections();
+		return r1 || r2;
 	}
 
 	public ActivationFunction getActivationFunction() {

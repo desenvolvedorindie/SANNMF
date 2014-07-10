@@ -15,7 +15,7 @@ public class FeedforwardNeuralNetwork extends AbstractNeuralNetwork {
 
 	protected AbstractOutputNeuron[] outputNeurons;
 
-	public AbstractNeuralNetwork setInput(double... inputVector) {
+	public FeedforwardNeuralNetwork setInput(double... inputVector) {
 		if (inputVector.length != this.inputNeurons.length)
 			throw new IllegalArgumentException("Input vector size does not match network input dimension");
 		int i = 0;
@@ -32,21 +32,21 @@ public class FeedforwardNeuralNetwork extends AbstractNeuralNetwork {
 		return this.outputs;
 	}
 
-	public AbstractNeuralNetwork activate() {
+	public FeedforwardNeuralNetwork activate() {
 		for (ILayer layer : this.layers)
 			if (layer instanceof ProcessorLayer)
 				((ProcessorLayer) layer).activate();
 		return this;
 	}
 
-	public AbstractNeuralNetwork reset() {
+	public FeedforwardNeuralNetwork reset() {
 		for (ILayer layer : this.layers)
 			if (layer instanceof ProcessorLayer)
 				((ProcessorLayer) layer).reset();
 		return this;
 	}
 
-	public AbstractNeuralNetwork initializeWeights(double value) {
+	public FeedforwardNeuralNetwork initializeWeights(double value) {
 		for (ILayer layer : this.layers)
 			for (INeuron neuron : layer.getNeurons())
 				if (neuron instanceof ProcessorNeuron)
@@ -63,7 +63,7 @@ public class FeedforwardNeuralNetwork extends AbstractNeuralNetwork {
 		return this.inputNeurons.length;
 	}
 
-	public AbstractNeuralNetwork setInputNeurons(InputNeuron[] neurons) {
+	public FeedforwardNeuralNetwork setInputNeurons(InputNeuron[] neurons) {
 		this.inputNeurons = neurons;
 		return this;
 	}
@@ -76,7 +76,7 @@ public class FeedforwardNeuralNetwork extends AbstractNeuralNetwork {
 		return this.outputNeurons.length;
 	}
 
-	public AbstractNeuralNetwork setOutputNeurons(AbstractOutputNeuron[] outputNeurons) {
+	public FeedforwardNeuralNetwork setOutputNeurons(AbstractOutputNeuron[] outputNeurons) {
 		this.outputNeurons = outputNeurons;
 		return this;
 	}
