@@ -40,11 +40,9 @@ import br.com.wfcreations.sannmf.event.IterativeLearningEvent;
 import br.com.wfcreations.sannmf.function.activation.Sigmoid;
 import br.com.wfcreations.sannmf.function.weightinitialization.UniformDistribution;
 import br.com.wfcreations.sannmf.learning.ErrorCorrectionLearning;
-import br.com.wfcreations.sannmf.learning.IterativeLearning;
 import br.com.wfcreations.sannmf.learning.algorithms.Backpropagation;
 import br.com.wfcreations.sannmf.learning.stopcondition.IStopCondition;
 import br.com.wfcreations.sannmf.learning.stopcondition.MaximumEpoch;
-import br.com.wfcreations.sannmf.learning.stopcondition.MaximumError;
 import br.com.wfcreations.sannmf.neuralnetwork.MLP;
 
 public class MLPNetworkTest {
