@@ -29,7 +29,6 @@
  */
 package br.com.wfcreations.sannmf.structure.feedforward;
 
-
 public class InputNeuron extends AbstractOutputNeuron {
 
 	private static final long serialVersionUID = 1L;

@@ -30,7 +30,7 @@
 package br.com.wfcreations.sannmf.event;
 
 import br.com.wfcreations.observer.dispatcher.Event;
-import br.com.wfcreations.sannmf.learning.AbstractLearningRule;
+import br.com.wfcreations.sannmf.learning.ILearningRule;
 
 public class LearningEvent extends Event {
 
@@ -38,18 +38,18 @@ public class LearningEvent extends Event {
 
 	public static final String COMPLETE_LEARNING = "completeLearning";
 
-	private AbstractLearningRule learRule;
+	private ILearningRule learRule;
 
-	public LearningEvent(String type, AbstractLearningRule learRule) {
+	public LearningEvent(String type, ILearningRule learRule) {
 		super(type, false, false);
 		this.setLearRule(learRule);
 	}
 
-	public AbstractLearningRule getLearRule() {
+	public ILearningRule getLearRule() {
 		return learRule;
 	}
 
-	public LearningEvent setLearRule(AbstractLearningRule learRule) {
+	public LearningEvent setLearRule(ILearningRule learRule) {
 		this.learRule = learRule;
 		return this;
 	}

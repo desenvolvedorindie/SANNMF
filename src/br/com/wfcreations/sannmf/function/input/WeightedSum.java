@@ -32,7 +32,6 @@ package br.com.wfcreations.sannmf.function.input;
 import java.util.List;
 
 import br.com.wfcreations.sannmf.structure.ISynapse;
-import br.com.wfcreations.sannmf.structure.feedforward.AbstractOutputNeuron;
 import br.com.wfcreations.sannmf.structure.feedforward.IOutputtedNeuron;
 
 public class WeightedSum implements IInputFunction {
@@ -44,7 +43,7 @@ public class WeightedSum implements IInputFunction {
 		double output = 0;
 		for (ISynapse synapse : inputSynapses)
 			if (synapse.getPresynaptic() instanceof IOutputtedNeuron)
-				output += ((AbstractOutputNeuron) synapse.getPresynaptic()).getOutput() * synapse.getWeight();
+				output += ((IOutputtedNeuron) synapse.getPresynaptic()).getOutput() * synapse.getWeight();
 		return output;
 	}
 }
