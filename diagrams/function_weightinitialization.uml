@@ -274,9 +274,9 @@
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="Left" type="integer">490</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">236</XPD:ATTR>
-<XPD:ATTR name="Width" type="integer">222</XPD:ATTR>
-<XPD:ATTR name="Height" type="integer">82</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">220</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">237</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">108</XPD:ATTR>
 <XPD:REF name="Model">I9u7nDMsRU+QH4UHabZYEAAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="sLJcWZ2qgUmSNY4OQYK92AAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="upYXZMooYkeKh5+dlmEICQAA">
@@ -304,15 +304,15 @@
 <XPD:OBJ name="OwnedViews[1]" type="UMLClassView" guid="y1dOxygK8kujWCLA/lk5fwAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Left" type="integer">360</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">324</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">356</XPD:ATTR>
-<XPD:ATTR name="Width" type="integer">226</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">266</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">147</XPD:ATTR>
 <XPD:REF name="Model">fyKCDGy2JUy76hg9pS/zogAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="mkG8k+Ve/EGNBBY4Klc/2gAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="hlnz3pDj8Eulb7LEi/CmiwAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Range</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">UniformDistribution</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="LW+lcuLiBUWhsCZenu2E+QAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -335,7 +335,7 @@
 <XPD:OBJ name="OwnedViews[2]" type="UMLGeneralizationView" guid="wyUxRkfg4UuEEhqwB7PtNgAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">533,356;566,317</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">527,356;555,327</XPD:ATTR>
 <XPD:REF name="Model">tvvuAQ8d+0610Yg+HKorjQAA</XPD:REF>
 <XPD:REF name="Head">d+iP4I0atUqVEzdYLsRDoQAA</XPD:REF>
 <XPD:REF name="Tail">y1dOxygK8kujWCLA/lk5fwAA</XPD:REF>
@@ -361,7 +361,7 @@
 <XPD:OBJ name="OwnedViews[3]" type="UMLClassView" guid="1uHIcQr5ekCHf65a9I+DjgAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Left" type="integer">616</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">608</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">369</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">268</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">121</XPD:ATTR>
@@ -392,7 +392,7 @@
 <XPD:OBJ name="OwnedViews[4]" type="UMLGeneralizationView" guid="8XYM/7GAPkGMk1Q341Bh7QAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">691,369;640,317</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">690,369;654,327</XPD:ATTR>
 <XPD:REF name="Model">nN6lAgvFGE6I6QwkldpzVQAA</XPD:REF>
 <XPD:REF name="Head">d+iP4I0atUqVEzdYLsRDoQAA</XPD:REF>
 <XPD:REF name="Tail">1uHIcQr5ekCHf65a9I+DjgAA</XPD:REF>
@@ -430,18 +430,38 @@
 <XPD:ATTR name="#Specializations" type="integer">2</XPD:ATTR>
 <XPD:REF name="Specializations[0]">tvvuAQ8d+0610Yg+HKorjQAA</XPD:REF>
 <XPD:REF name="Specializations[1]">nN6lAgvFGE6I6QwkldpzVQAA</XPD:REF>
-<XPD:ATTR name="#Operations" type="integer">2</XPD:ATTR>
+<XPD:ATTR name="#Operations" type="integer">4</XPD:ATTR>
 <XPD:OBJ name="Operations[0]" type="UMLOperation" guid="J4ZM0hPEOkCyUSQYWKb4dQAA">
 <XPD:ATTR name="Name" type="string">randomize</XPD:ATTR>
 <XPD:REF name="Owner">I9u7nDMsRU+QH4UHabZYEAAA</XPD:REF>
 <XPD:ATTR name="#Parameters" type="integer">1</XPD:ATTR>
-<XPD:OBJ name="Parameters[0]" type="UMLParameter" guid="YVLE+eLDXkuh5evuTbHgzQAA">
+<XPD:OBJ name="Parameters[0]" type="UMLParameter" guid="YdBWRDt3XkaNdpyhSt6sBQAA">
 <XPD:ATTR name="Name" type="string">neuralnetwork</XPD:ATTR>
-<XPD:ATTR name="TypeExpression" type="string">NeuralNetwork</XPD:ATTR>
+<XPD:ATTR name="TypeExpression" type="string">INeuralNetwork</XPD:ATTR>
 <XPD:REF name="BehavioralFeature">J4ZM0hPEOkCyUSQYWKb4dQAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:OBJ name="Operations[1]" type="UMLOperation" guid="rAYwjISYCk+nGEoVOCDWxwAA">
+<XPD:OBJ name="Operations[1]" type="UMLOperation" guid="Q9achi4XlU23lZ1fiUWx9gAA">
+<XPD:ATTR name="Name" type="string">getRandom</XPD:ATTR>
+<XPD:REF name="Owner">I9u7nDMsRU+QH4UHabZYEAAA</XPD:REF>
+<XPD:ATTR name="#Parameters" type="integer">1</XPD:ATTR>
+<XPD:OBJ name="Parameters[0]" type="UMLParameter" guid="l6Ucf89ep0aNbQGFsOeLwAAA">
+<XPD:ATTR name="DirectionKind" type="UMLParameterDirectionKind">pdkReturn</XPD:ATTR>
+<XPD:ATTR name="TypeExpression" type="string">Random</XPD:ATTR>
+<XPD:REF name="BehavioralFeature">Q9achi4XlU23lZ1fiUWx9gAA</XPD:REF>
+</XPD:OBJ>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[2]" type="UMLOperation" guid="yDxD0My38k6yxlta3t/68QAA">
+<XPD:ATTR name="Name" type="string">setRandom</XPD:ATTR>
+<XPD:REF name="Owner">I9u7nDMsRU+QH4UHabZYEAAA</XPD:REF>
+<XPD:ATTR name="#Parameters" type="integer">1</XPD:ATTR>
+<XPD:OBJ name="Parameters[0]" type="UMLParameter" guid="zux+z7ycZUCSfqZ48j7MpwAA">
+<XPD:ATTR name="Name" type="string">random</XPD:ATTR>
+<XPD:ATTR name="TypeExpression" type="string">Random</XPD:ATTR>
+<XPD:REF name="BehavioralFeature">yDxD0My38k6yxlta3t/68QAA</XPD:REF>
+</XPD:OBJ>
+</XPD:OBJ>
+<XPD:OBJ name="Operations[3]" type="UMLOperation" guid="rAYwjISYCk+nGEoVOCDWxwAA">
 <XPD:ATTR name="Name" type="string">raffleWeight</XPD:ATTR>
 <XPD:ATTR name="IsAbstract" type="boolean">True</XPD:ATTR>
 <XPD:REF name="Owner">I9u7nDMsRU+QH4UHabZYEAAA</XPD:REF>
@@ -462,7 +482,7 @@
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[1]" type="UMLClass" guid="fyKCDGy2JUy76hg9pS/zogAA">
-<XPD:ATTR name="Name" type="string">Range</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">UniformDistribution</XPD:ATTR>
 <XPD:REF name="Namespace">TUxtShOf1UetUuD8farGVAAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">y1dOxygK8kujWCLA/lk5fwAA</XPD:REF>

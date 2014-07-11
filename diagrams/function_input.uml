@@ -280,7 +280,7 @@
 <XPD:REF name="Model">gOLDD7QeOE+3WnbFlwAe0AAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="o+dt5Ph5IEuK57geiMoPUAAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="WM38NMrkik6DZUQxLpl7CgAA">
-<XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
+<XPD:ATTR name="FontStyle" type="integer">3</XPD:ATTR>
 <XPD:ATTR name="Text" type="string">IInputFunction</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="Cj4I1fmEEUCk1wBXSHa/9wAA">
@@ -364,6 +364,7 @@
 <XPD:OBJ name="OwnedElements[0]" type="UMLClass" guid="gOLDD7QeOE+3WnbFlwAe0AAA">
 <XPD:ATTR name="Name" type="string">IInputFunction</XPD:ATTR>
 <XPD:ATTR name="StereotypeName" type="string">inteface</XPD:ATTR>
+<XPD:ATTR name="IsAbstract" type="boolean">True</XPD:ATTR>
 <XPD:REF name="Namespace">TUxtShOf1UetUuD8farGVAAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">qQMavy9Qt0aNgSnEGFHYFQAA</XPD:REF>
@@ -377,14 +378,14 @@
 <XPD:ATTR name="Name" type="string">output</XPD:ATTR>
 <XPD:REF name="Owner">gOLDD7QeOE+3WnbFlwAe0AAA</XPD:REF>
 <XPD:ATTR name="#Parameters" type="integer">2</XPD:ATTR>
-<XPD:OBJ name="Parameters[0]" type="UMLParameter" guid="om1H5faf60WG5nxQ8ed6rgAA">
+<XPD:OBJ name="Parameters[0]" type="UMLParameter" guid="H2GlrTZIyUSxD3OfzMh4nAAA">
 <XPD:ATTR name="DirectionKind" type="UMLParameterDirectionKind">pdkReturn</XPD:ATTR>
 <XPD:ATTR name="TypeExpression" type="string">double</XPD:ATTR>
 <XPD:REF name="BehavioralFeature">Eu02607AJ0iYf7TTHp6SegAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="Parameters[1]" type="UMLParameter" guid="1Iunj3NHaUia9S3YcN500wAA">
+<XPD:OBJ name="Parameters[1]" type="UMLParameter" guid="qobYZpyG+UeohpLxyBjf6QAA">
 <XPD:ATTR name="Name" type="string">inputs</XPD:ATTR>
-<XPD:ATTR name="TypeExpression" type="string">Synapse[]</XPD:ATTR>
+<XPD:ATTR name="TypeExpression" type="string">List&lt;ISynapse&gt;</XPD:ATTR>
 <XPD:REF name="BehavioralFeature">Eu02607AJ0iYf7TTHp6SegAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
@@ -404,14 +405,14 @@
 <XPD:ATTR name="Name" type="string">output</XPD:ATTR>
 <XPD:REF name="Owner">LEhCMfEejk+KlcZ7MSXBVAAA</XPD:REF>
 <XPD:ATTR name="#Parameters" type="integer">2</XPD:ATTR>
-<XPD:OBJ name="Parameters[0]" type="UMLParameter" guid="4r1n8FdPuU2PGomp+4slOwAA">
+<XPD:OBJ name="Parameters[0]" type="UMLParameter" guid="OBQohWxwxki6JCxBNw7CpwAA">
 <XPD:ATTR name="DirectionKind" type="UMLParameterDirectionKind">pdkReturn</XPD:ATTR>
 <XPD:ATTR name="TypeExpression" type="string">double</XPD:ATTR>
 <XPD:REF name="BehavioralFeature">djfIv8YOQEqkJ9s9eFX75wAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="Parameters[1]" type="UMLParameter" guid="GtjiDomUIU+AMPmLeleTwQAA">
+<XPD:OBJ name="Parameters[1]" type="UMLParameter" guid="FuXSZDHHl06tQMRXHsN22wAA">
 <XPD:ATTR name="Name" type="string">inputs</XPD:ATTR>
-<XPD:ATTR name="TypeExpression" type="string">Synapse[]</XPD:ATTR>
+<XPD:ATTR name="TypeExpression" type="string">List&lt;ISynapse&gt;</XPD:ATTR>
 <XPD:REF name="BehavioralFeature">djfIv8YOQEqkJ9s9eFX75wAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>

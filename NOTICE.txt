@@ -1,0 +1,4 @@
+Future implementations
+	- CompetitiveLearning extends LearningRule implements IUnsupervisedLearning
+	- HebbianLearning extends LearningRule implements IUnsupervisedLearning
+	- MemoryBasedLearning extends LearningRule implements ISupervisedLearning

@@ -90,9 +90,9 @@
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="Left" type="integer">338</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">548</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">540</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">247</XPD:ATTR>
-<XPD:ATTR name="Height" type="integer">134</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">121</XPD:ATTR>
 <XPD:REF name="Model">uEjiwd7KqU6GptyqNHV1EwAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="riWdAtuu2E2lYy5F/j+3bgAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="z1FpYZRrBEyeVl7FbLWi9AAA">
@@ -120,7 +120,7 @@
 <XPD:OBJ name="OwnedViews[2]" type="UMLGeneralizationView" guid="Rm85MrO8ukm0RkPbiGk1UQAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">461,548;461,504</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">461,540;461,504</XPD:ATTR>
 <XPD:REF name="Model">yxpXjZ+660eWBe+c9ktopwAA</XPD:REF>
 <XPD:REF name="Head">MDhj3hyUcU+z5BD6u2TAIQAA</XPD:REF>
 <XPD:REF name="Tail">Ph21tGUL2k2UE4uZEAHAFwAA</XPD:REF>
@@ -147,7 +147,7 @@
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="Left" type="integer">421</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">300</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">308</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">80</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">43</XPD:ATTR>
 <XPD:REF name="Model">5J4CmPIIw0aSfCABIYp+xQAA</XPD:REF>
@@ -177,7 +177,7 @@
 <XPD:OBJ name="OwnedViews[4]" type="UMLGeneralizationView" guid="vehrpmalg0iTMxo9F1iIIQAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">461,384;460,342</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">460,384;460,350</XPD:ATTR>
 <XPD:REF name="Model">FugXUZZnEkiKjbJzsEjcuwAA</XPD:REF>
 <XPD:REF name="Head">iqS03vG+T0WFWpybrtNuEwAA</XPD:REF>
 <XPD:REF name="Tail">MDhj3hyUcU+z5BD6u2TAIQAA</XPD:REF>
@@ -304,44 +304,38 @@
 <XPD:REF name="Views[3]">lF6f6sXEhkOOTyko6NzSKwAA</XPD:REF>
 <XPD:ATTR name="#Generalizations" type="integer">1</XPD:ATTR>
 <XPD:REF name="Generalizations[0]">yxpXjZ+660eWBe+c9ktopwAA</XPD:REF>
-<XPD:ATTR name="#Attributes" type="integer">7</XPD:ATTR>
-<XPD:OBJ name="Attributes[0]" type="UMLAttribute" guid="Gdx1/fDXVk+du0RMhMeXTwAA">
-<XPD:ATTR name="Name" type="string">START_LEARNING</XPD:ATTR>
-<XPD:ATTR name="TypeExpression" type="string">String</XPD:ATTR>
-<XPD:ATTR name="InitialValue" type="string">&quot;startLearning&quot;</XPD:ATTR>
-<XPD:REF name="Owner">uEjiwd7KqU6GptyqNHV1EwAA</XPD:REF>
-</XPD:OBJ>
-<XPD:OBJ name="Attributes[1]" type="UMLAttribute" guid="Z0E21aUreUy9hD/d9vbmEQAA">
+<XPD:ATTR name="#Attributes" type="integer">6</XPD:ATTR>
+<XPD:OBJ name="Attributes[0]" type="UMLAttribute" guid="Z0E21aUreUy9hD/d9vbmEQAA">
 <XPD:ATTR name="Name" type="string">STOP_LEARNING</XPD:ATTR>
 <XPD:ATTR name="TypeExpression" type="string">String</XPD:ATTR>
 <XPD:ATTR name="InitialValue" type="string">&quot;stopLeaning&quot;</XPD:ATTR>
 <XPD:REF name="Owner">uEjiwd7KqU6GptyqNHV1EwAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="Attributes[2]" type="UMLAttribute" guid="hGqqdnS5tU6ILhd16vx0CgAA">
+<XPD:OBJ name="Attributes[1]" type="UMLAttribute" guid="hGqqdnS5tU6ILhd16vx0CgAA">
 <XPD:ATTR name="Name" type="string">PAUSE_LEARNING</XPD:ATTR>
 <XPD:ATTR name="TypeExpression" type="string">String</XPD:ATTR>
 <XPD:ATTR name="InitialValue" type="string">&quot;pauseLearning&quot;</XPD:ATTR>
 <XPD:REF name="Owner">uEjiwd7KqU6GptyqNHV1EwAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="Attributes[3]" type="UMLAttribute" guid="O33x/+B0YUqDxER8KPtrPgAA">
+<XPD:OBJ name="Attributes[2]" type="UMLAttribute" guid="O33x/+B0YUqDxER8KPtrPgAA">
 <XPD:ATTR name="Name" type="string">RESUME_LEARNING</XPD:ATTR>
 <XPD:ATTR name="TypeExpression" type="string">String</XPD:ATTR>
 <XPD:ATTR name="InitialValue" type="string">&quot;resumeLearning&quot;</XPD:ATTR>
 <XPD:REF name="Owner">uEjiwd7KqU6GptyqNHV1EwAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="Attributes[4]" type="UMLAttribute" guid="Z0y6P5g0qkC+0X80DTzqNwAA">
+<XPD:OBJ name="Attributes[3]" type="UMLAttribute" guid="Z0y6P5g0qkC+0X80DTzqNwAA">
 <XPD:ATTR name="Name" type="string">START_EPOCH</XPD:ATTR>
 <XPD:ATTR name="TypeExpression" type="string">String</XPD:ATTR>
 <XPD:ATTR name="InitialValue" type="string">&quot;startEpoch&quot;</XPD:ATTR>
 <XPD:REF name="Owner">uEjiwd7KqU6GptyqNHV1EwAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="Attributes[5]" type="UMLAttribute" guid="S28trgs44ESCwRD4AL/izwAA">
+<XPD:OBJ name="Attributes[4]" type="UMLAttribute" guid="S28trgs44ESCwRD4AL/izwAA">
 <XPD:ATTR name="Name" type="string">END_EPOCH</XPD:ATTR>
 <XPD:ATTR name="TypeExpression" type="string">String</XPD:ATTR>
 <XPD:ATTR name="InitialValue" type="string">&quot;endEpoch&quot;</XPD:ATTR>
 <XPD:REF name="Owner">uEjiwd7KqU6GptyqNHV1EwAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="Attributes[6]" type="UMLAttribute" guid="fvQtGaTg2Uekznh4Y8IXgQAA">
+<XPD:OBJ name="Attributes[5]" type="UMLAttribute" guid="fvQtGaTg2Uekznh4Y8IXgQAA">
 <XPD:ATTR name="Name" type="string">INTERATION</XPD:ATTR>
 <XPD:ATTR name="TypeExpression" type="string">String</XPD:ATTR>
 <XPD:ATTR name="InitialValue" type="string">&quot;interation&quot;</XPD:ATTR>

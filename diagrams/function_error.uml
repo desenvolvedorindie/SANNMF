@@ -280,7 +280,7 @@
 <XPD:REF name="Model">gOLDD7QeOE+3WnbFlwAe0AAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="o+dt5Ph5IEuK57geiMoPUAAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="WM38NMrkik6DZUQxLpl7CgAA">
-<XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
+<XPD:ATTR name="FontStyle" type="integer">3</XPD:ATTR>
 <XPD:ATTR name="Text" type="string">IErrorFunction</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="Cj4I1fmEEUCk1wBXSHa/9wAA">
@@ -364,6 +364,7 @@
 <XPD:OBJ name="OwnedElements[0]" type="UMLClass" guid="gOLDD7QeOE+3WnbFlwAe0AAA">
 <XPD:ATTR name="Name" type="string">IErrorFunction</XPD:ATTR>
 <XPD:ATTR name="StereotypeName" type="string">inteface</XPD:ATTR>
+<XPD:ATTR name="IsAbstract" type="boolean">True</XPD:ATTR>
 <XPD:REF name="Namespace">TUxtShOf1UetUuD8farGVAAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">qQMavy9Qt0aNgSnEGFHYFQAA</XPD:REF>
