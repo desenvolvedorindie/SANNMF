@@ -36,7 +36,7 @@ import br.com.wfcreations.sannmf.structure.feedforward.BiasNeuron;
 import br.com.wfcreations.sannmf.structure.feedforward.IInputtedNeuron;
 import br.com.wfcreations.sannmf.structure.feedforward.IOutputtedNeuron;
 
-public class SynapseUtils {
+public abstract class SynapseUtils {
 
 	public static Synapse createSynapse(IOutputtedNeuron presynaptical, IInputtedNeuron postsynaptical) {
 		Synapse synapse = new Synapse(presynaptical, postsynaptical);
@@ -52,38 +52,43 @@ public class SynapseUtils {
 		return synapse;
 	}
 
+	public static void disconnectSynapses(IOutputtedNeuron presynaptical, IInputtedNeuron postsynaptical) {
+		postsynaptical.removeConnectionFrom(presynaptical);
+		presynaptical.removeConnectionTo(presynaptical);
+	}
+
+	public static void disconnectSynapse(Synapse synapse) {
+		((IOutputtedNeuron) synapse.getPresynaptic()).removeOutputConnection(synapse);
+		((IInputtedNeuron) synapse.getPostsynaptic()).removeInputConnection(synapse);
+	}
+
 	public static void fullConnect(ILayer fromLayer, ILayer toLayer) {
-		for (INeuron presynaptical : fromLayer.getNeurons()) {
+		for (INeuron presynaptical : fromLayer.getNeurons())
 			if (presynaptical instanceof IOutputtedNeuron)
 				for (INeuron postsynaptical : toLayer.getNeurons())
 					if (postsynaptical instanceof IInputtedNeuron)
 						createSynapse((IOutputtedNeuron) presynaptical, (IInputtedNeuron) postsynaptical);
-		}
 	}
 
-	public static void fullConnect(ILayer fromLayer, ILayer toLayer, boolean connectFromBias) {
-		for (INeuron presynaptical : fromLayer.getNeurons()) {
+	public static void fullConnect(ILayer fromLayer, ILayer toLayer, boolean connectBias) {
+		for (INeuron presynaptical : fromLayer.getNeurons())
 			if (presynaptical instanceof IOutputtedNeuron) {
-				if (presynaptical instanceof BiasNeuron && !connectFromBias)
+				if (presynaptical instanceof BiasNeuron && !connectBias)
 					continue;
-				for (INeuron postsynaptical : toLayer.getNeurons()) {
+				for (INeuron postsynaptical : toLayer.getNeurons())
 					if (postsynaptical instanceof IInputtedNeuron)
 						createSynapse((IOutputtedNeuron) presynaptical, (IInputtedNeuron) postsynaptical);
-				}
 			}
-		}
 	}
 
 	public static void fullConnect(ILayer layer) {
 		int neuronNumber = layer.getNeuronsNum();
-		for (int i = 0; i < neuronNumber; i++) {
+		for (int i = 0; i < neuronNumber; i++)
 			if (layer.getNeuronAt(i) instanceof IOutputtedNeuron)
-				for (int j = 0; j < neuronNumber; j++) {
+				for (int j = 0; j < neuronNumber; j++)
 					if (j == i)
 						continue;
-					if (layer.getNeuronAt(j) instanceof IInputtedNeuron)
+					else if (layer.getNeuronAt(j) instanceof IInputtedNeuron)
 						createSynapse((IOutputtedNeuron) layer.getNeuronAt(i), (IInputtedNeuron) layer.getNeuronAt(j));
-				}
-		}
 	}
 }

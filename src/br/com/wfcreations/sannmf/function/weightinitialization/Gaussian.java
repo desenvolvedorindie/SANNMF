@@ -29,7 +29,7 @@
  */
 package br.com.wfcreations.sannmf.function.weightinitialization;
 
-public class Gaussian extends WeightsInitializer {
+public class Gaussian extends AbstractWeightsInitializer {
 
 	private static final long serialVersionUID = 1L;
 
@@ -39,11 +39,16 @@ public class Gaussian extends WeightsInitializer {
 
 	private double spare;
 
-	private boolean spareready = false;
+	private boolean spareready;
+
+	public Gaussian() {
+		this(1, 0);
+	}
 
 	public Gaussian(double mean, double standardDeviation) {
 		this.mean = mean;
 		this.standardDeviation = standardDeviation;
+		this.spareready = false;
 	}
 
 	@Override

@@ -29,7 +29,6 @@
  */
 package br.com.wfcreations.sannmf.function.weightinitialization;
 
-import java.io.Serializable;
 import java.util.Random;
 
 import br.com.wfcreations.sannmf.structure.ILayer;
@@ -38,11 +37,11 @@ import br.com.wfcreations.sannmf.structure.INeuron;
 import br.com.wfcreations.sannmf.structure.ISynapse;
 import br.com.wfcreations.sannmf.structure.feedforward.IInputtedNeuron;
 
-public abstract class WeightsInitializer implements Serializable {
+public abstract class AbstractWeightsInitializer implements IWeightsInitializer {
 
 	private static final long serialVersionUID = 1L;
 
-	private Random random = new Random();
+	protected Random random = new Random();
 
 	public void randomize(INeuralNetwork neuralnetwork) {
 		for (ILayer layer : neuralnetwork.getLayers())
@@ -56,10 +55,10 @@ public abstract class WeightsInitializer implements Serializable {
 		return random;
 	}
 
-	public WeightsInitializer setRandom(Random random) {
+	public AbstractWeightsInitializer setRandom(Random random) {
 		this.random = random;
 		return this;
 	}
 
-	public abstract double raffleWeight();
+	abstract protected double raffleWeight();
 }

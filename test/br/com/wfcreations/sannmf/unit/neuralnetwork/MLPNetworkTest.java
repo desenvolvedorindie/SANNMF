@@ -29,6 +29,9 @@
  */
 package br.com.wfcreations.sannmf.unit.neuralnetwork;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -75,9 +78,10 @@ public class MLPNetworkTest {
 			}
 		});
 
-		IStopCondition[] stopCondition = new IStopCondition[] { new MaximumEpoch(backpropagation, 10000) };
+		List<IStopCondition> stopConditions = new ArrayList<>();
+		stopConditions.add(new MaximumEpoch(backpropagation, 10000));
 
-		backpropagation.learn(trainingSet, stopCondition);
+		backpropagation.learn(trainingSet, stopConditions);
 
 		System.out.println("Error: " + backpropagation.getTotalNetworkError());
 		System.out.println("PreviousEpochError: " + backpropagation.getPreviousEpochError());

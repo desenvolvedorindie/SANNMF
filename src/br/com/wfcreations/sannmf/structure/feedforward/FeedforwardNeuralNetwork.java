@@ -29,7 +29,7 @@
  */
 package br.com.wfcreations.sannmf.structure.feedforward;
 
-import br.com.wfcreations.sannmf.function.weightinitialization.WeightsInitializer;
+import br.com.wfcreations.sannmf.function.weightinitialization.IWeightsInitializer;
 import br.com.wfcreations.sannmf.structure.AbstractNeuralNetwork;
 import br.com.wfcreations.sannmf.structure.ILayer;
 import br.com.wfcreations.sannmf.structure.INeuron;
@@ -45,12 +45,12 @@ public abstract class FeedforwardNeuralNetwork extends AbstractNeuralNetwork {
 
 	protected IOutputtedNeuron[] outputNeurons;
 
-	public FeedforwardNeuralNetwork setInput(double... inputVector) {
-		if (inputVector.length != this.inputNeurons.length)
+	public FeedforwardNeuralNetwork setInput(double... inputs) {
+		if (inputs.length != this.inputNeurons.length)
 			throw new IllegalArgumentException("Input vector size does not match network input dimension");
 		int i = 0;
 		for (InputNeuron neuron : this.inputNeurons)
-			neuron.setInput(inputVector[i++]);
+			neuron.setInput(inputs[i++]);
 		return this;
 	}
 
@@ -76,17 +76,19 @@ public abstract class FeedforwardNeuralNetwork extends AbstractNeuralNetwork {
 		return this;
 	}
 
-	public FeedforwardNeuralNetwork initializeWeights(WeightsInitializer weightInitializer) {
-		weightInitializer.randomize(this);
-		return this;
-	}
-
+	@Override
 	public FeedforwardNeuralNetwork initializeWeights(double value) {
 		for (ILayer layer : this.layers)
 			for (INeuron neuron : layer.getNeurons())
 				if (neuron instanceof IInputtedNeuron)
 					for (ISynapse synapse : ((IInputtedNeuron) neuron).getInputConnections())
 						synapse.setWeight(value);
+		return this;
+	}
+
+	@Override
+	public FeedforwardNeuralNetwork initializeWeights(IWeightsInitializer weightInitializer) {
+		weightInitializer.randomize(this);
 		return this;
 	}
 
@@ -104,10 +106,5 @@ public abstract class FeedforwardNeuralNetwork extends AbstractNeuralNetwork {
 
 	public int getOutputsNum() {
 		return this.outputNeurons.length;
-	}
-
-	public FeedforwardNeuralNetwork setOutputNeurons(IOutputtedNeuron[] outputNeurons) {
-		this.outputNeurons = outputNeurons;
-		return this;
 	}
 }

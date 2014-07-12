@@ -29,6 +29,9 @@
  */
 package br.com.wfcreations.sannmf.unit.neuralnetwork;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.*;
 
 import br.com.wfcreations.sannmf.data.SupervisedPattern;
@@ -57,9 +60,11 @@ public class PerceptronNetworkTest {
 		trainingSet.addPattern(new SupervisedPattern(new double[] { -1, 1 }, new double[] { 1 }));
 		trainingSet.addPattern(new SupervisedPattern(new double[] { -1, -1 }, new double[] { 0 }));
 
-		IStopCondition[] stopCondition = new IStopCondition[] { new MaximumError(deltaRule, 0), new MaximumEpoch(deltaRule, 600) };
+		List<IStopCondition> stopConditions = new ArrayList<>();
+		stopConditions.add(new MaximumError(deltaRule, 0));
+		stopConditions.add(new MaximumEpoch(deltaRule, 600));
 
-		deltaRule.learn(trainingSet, stopCondition);
+		deltaRule.learn(trainingSet, stopConditions);
 
 		System.out.println("Error: " + deltaRule.getTotalNetworkError());
 		System.out.println("PreviousEpochError: " + deltaRule.getPreviousEpochError());

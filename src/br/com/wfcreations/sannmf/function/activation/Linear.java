@@ -33,7 +33,7 @@ public class Linear implements IDerivativeActivationFunction {
 
 	private static final long serialVersionUID = 1L;
 
-	private double slope = 1d;
+	private double slope = 1;
 
 	public Linear() {
 	}

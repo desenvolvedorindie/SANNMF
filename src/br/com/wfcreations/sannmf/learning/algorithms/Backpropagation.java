@@ -46,15 +46,16 @@ public class Backpropagation extends DeltaRule {
 	}
 
 	@Override
-	protected void updateNetworkWeights(double[] outputError) {
+	protected Backpropagation updateNetworkWeights(double[] outputError) {
 		this.calculateErrorAndUpdateOutputNeurons(outputError);
 		this.calculateErrorAndUpdateHiddenNeurons();
+		return this;
 	}
 
-	protected void calculateErrorAndUpdateOutputNeurons(double[] outputError) {
+	protected Backpropagation calculateErrorAndUpdateOutputNeurons(double[] outputError) {
 		int i = 0;
 		ErrorNeuron errorNeuron;
-		for (IOutputtedNeuron neuron : ((FeedforwardNeuralNetwork) network).getOutputNeurons()) {
+		for (IOutputtedNeuron neuron : ((FeedforwardNeuralNetwork) this.network).getOutputNeurons()) {
 			if (neuron instanceof ErrorNeuron) {
 				errorNeuron = (ErrorNeuron) neuron;
 				if (outputError[i] == 0) {
@@ -69,15 +70,17 @@ public class Backpropagation extends DeltaRule {
 				i++;
 			}
 		}
+		return this;
 	}
 
-	protected void calculateErrorAndUpdateHiddenNeurons() {
-		for (int i = network.getLayersNum() - 2; i > 0; i--)
-			for (INeuron neuron : network.getLayerAt(i).getNeurons())
+	protected Backpropagation calculateErrorAndUpdateHiddenNeurons() {
+		for (int i = this.network.getLayersNum() - 2; i > 0; i--)
+			for (INeuron neuron : this.network.getLayerAt(i).getNeurons())
 				if (neuron instanceof ErrorNeuron) {
 					ErrorNeuron errorNeuron = (ErrorNeuron) neuron;
 					this.updateNeuronWeights(errorNeuron.setError(this.calculateHiddenNeuronError(errorNeuron)));
 				}
+		return this;
 	}
 
 	protected double calculateHiddenNeuronError(ProcessorNeuron neuron) {

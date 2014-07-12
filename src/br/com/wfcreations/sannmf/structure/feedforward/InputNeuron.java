@@ -33,9 +33,6 @@ public class InputNeuron extends AbstractOutputNeuron {
 
 	private static final long serialVersionUID = 1L;
 
-	public InputNeuron() {
-	}
-
 	public InputNeuron setInput(double input) {
 		this.output = input;
 		return this;

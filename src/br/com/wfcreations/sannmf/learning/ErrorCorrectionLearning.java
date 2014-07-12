@@ -50,11 +50,11 @@ public abstract class ErrorCorrectionLearning extends IterativeLearning implemen
 
 	protected SupervisedSet trainingData;
 
-	protected transient double previousEpochError;
-
 	protected IErrorFunction errorFunction;
 
 	protected double totalNetworkError;
+
+	protected double previousEpochError;
 
 	public ErrorCorrectionLearning(FeedforwardNeuralNetwork network, boolean batchMode, IErrorFunction errorFunction) {
 		this.setNetwork(network);
@@ -64,37 +64,22 @@ public abstract class ErrorCorrectionLearning extends IterativeLearning implemen
 	}
 
 	@Override
-	public void learn(SupervisedSet trainingSet) {
+	public ErrorCorrectionLearning learn(SupervisedSet trainingSet) {
 		learn(trainingSet, null);
+		return this;
 	}
 
-	public void learn(SupervisedSet trainingSet, IStopCondition[] stopCondition) {
+	public void learn(SupervisedSet trainingSet, List<IStopCondition> stopConditions) {
 		if (trainingSet == null)
 			throw new IllegalArgumentException("Training Set can't be null");
 
 		this.trainingData = trainingSet;
-		this.stopConditions = stopCondition;
-		if (stopCondition == null)
-			this.stopConditions = new IStopCondition[0];
+
+		if (stopConditions != null)
+			this.stopConditions = stopConditions;
 
 		this.previousEpochError = this.totalNetworkError = Double.NaN;
-		startLearning();
-	}
-
-	protected void learnPattern(SupervisedPattern trainingElement) {
-		FeedforwardNeuralNetwork feedforwardNeuralNetwork = (FeedforwardNeuralNetwork) network;
-		feedforwardNeuralNetwork.setInput(trainingElement.getInputs());
-		feedforwardNeuralNetwork.activate();
-		double[] outputError = this.calculateOutputError(trainingElement.getOutputs(), feedforwardNeuralNetwork.getOutput());
-		this.errorFunction.addOutputsError(outputError);
-		this.updateNetworkWeights(outputError);
-	}
-
-	protected double[] calculateOutputError(double[] desiredOutput, double[] output) {
-		double[] outputError = new double[desiredOutput.length];
-		for (int i = 0; i < output.length; i++)
-			outputError[i] = desiredOutput[i] - output[i];
-		return outputError;
+		start();
 	}
 
 	public double getTotalNetworkError() {
@@ -117,16 +102,24 @@ public abstract class ErrorCorrectionLearning extends IterativeLearning implemen
 	}
 
 	@Override
+	public ErrorCorrectionLearning setNetwork(INeuralNetwork network) {
+		if (!(network instanceof FeedforwardNeuralNetwork))
+			throw new IllegalArgumentException("Neuralnetwork must be feedforward");
+		super.setNetwork(network);
+		return this;
+	}
+
+	@Override
 	public SupervisedSet getTrainingData() {
 		return this.trainingData;
 	}
 
 	@Override
-	protected void onStartLearning() {
+	protected void onStart() {
 	}
 
 	@Override
-	protected void onStopLearning() {
+	protected void onStop() {
 	}
 
 	@Override
@@ -139,7 +132,7 @@ public abstract class ErrorCorrectionLearning extends IterativeLearning implemen
 	@Override
 	protected void doLearningEpoch() {
 		Iterator<SupervisedPattern> iterator = this.trainingData.iterator();
-		while (iterator.hasNext() && !isStoppedLearning()) {
+		while (iterator.hasNext() && !isStopped()) {
 			this.learnPattern(iterator.next());
 			eventDispatcher.dispatchEvent(new IterativeLearningEvent(IterativeLearningEvent.ITERATION, this));
 		}
@@ -152,8 +145,8 @@ public abstract class ErrorCorrectionLearning extends IterativeLearning implemen
 
 	@Override
 	protected void doBatchWeightsUpdate() {
-		List<ILayer> layers = network.getLayers();
-		for (int i = network.getLayersNum() - 1; i > 0; i--)
+		List<ILayer> layers = this.network.getLayers();
+		for (int i = this.network.getLayersNum() - 1; i > 0; i--)
 			for (INeuron neuron : layers.get(i).getNeurons())
 				if (neuron instanceof IInputtedNeuron)
 					for (ISynapse synapse : ((IInputtedNeuron) neuron).getInputConnections()) {
@@ -163,13 +156,21 @@ public abstract class ErrorCorrectionLearning extends IterativeLearning implemen
 
 	}
 
-	@Override
-	public ErrorCorrectionLearning setNetwork(INeuralNetwork network) {
-		if (!(network instanceof FeedforwardNeuralNetwork))
-			throw new IllegalArgumentException("Neuralnetwork must be feedforward");
-		super.setNetwork(network);
-		return this;
+	protected void learnPattern(SupervisedPattern trainingElement) {
+		FeedforwardNeuralNetwork feedforwardNeuralNetwork = (FeedforwardNeuralNetwork) this.network;
+		feedforwardNeuralNetwork.setInput(trainingElement.getInputs());
+		feedforwardNeuralNetwork.activate();
+		double[] outputError = this.calculateOutputError(trainingElement.getOutputs(), feedforwardNeuralNetwork.getOutput());
+		this.errorFunction.addOutputsError(outputError);
+		this.updateNetworkWeights(outputError);
 	}
 
-	protected abstract void updateNetworkWeights(double[] outputError);
+	protected double[] calculateOutputError(double[] desiredOutput, double[] output) {
+		double[] outputError = new double[desiredOutput.length];
+		for (int i = 0; i < output.length; i++)
+			outputError[i] = desiredOutput[i] - output[i];
+		return outputError;
+	}
+
+	protected abstract ErrorCorrectionLearning updateNetworkWeights(double[] outputError);
 }

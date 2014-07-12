@@ -33,9 +33,6 @@ public class BiasNeuron extends AbstractOutputNeuron {
 
 	private static final long serialVersionUID = 1L;
 
-	public BiasNeuron() {
-	}
-
 	@Override
 	public double getOutput() {
 		return 1;

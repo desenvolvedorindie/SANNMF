@@ -37,5 +37,5 @@ public interface ISupervisedLearning extends Serializable {
 
 	public SupervisedSet getTrainingData();
 
-	public void learn(SupervisedSet trainingSet);
+	public ISupervisedLearning learn(SupervisedSet trainingSet);
 }

@@ -32,7 +32,7 @@ package br.com.wfcreations.sannmf.structure;
 import java.io.Serializable;
 import java.util.List;
 
-import br.com.wfcreations.sannmf.function.weightinitialization.WeightsInitializer;
+import br.com.wfcreations.sannmf.function.weightinitialization.IWeightsInitializer;
 
 public interface INeuralNetwork extends Serializable {
 
@@ -52,7 +52,7 @@ public interface INeuralNetwork extends Serializable {
 
 	public int getLayersNum();
 
-	public INeuralNetwork initializeWeights(WeightsInitializer weightInitializer);
+	public INeuralNetwork initializeWeights(IWeightsInitializer weightInitializer);
 
 	public INeuralNetwork initializeWeights(double value);
 }

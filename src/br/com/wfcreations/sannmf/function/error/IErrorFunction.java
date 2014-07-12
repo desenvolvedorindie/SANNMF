@@ -29,7 +29,9 @@
  */
 package br.com.wfcreations.sannmf.function.error;
 
-public interface IErrorFunction {
+import java.io.Serializable;
+
+public interface IErrorFunction extends Serializable {
 
 	public double getTotalError();
 

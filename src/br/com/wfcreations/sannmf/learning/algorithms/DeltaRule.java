@@ -50,14 +50,15 @@ public class DeltaRule extends ErrorCorrectionLearning {
 	}
 
 	@Override
-	protected void updateNetworkWeights(double[] outputError) {
+	protected DeltaRule updateNetworkWeights(double[] outputError) {
 		int i = 0;
-		for (IOutputtedNeuron neuron : ((FeedforwardNeuralNetwork) network).getOutputNeurons())
+		for (IOutputtedNeuron neuron : ((FeedforwardNeuralNetwork) this.network).getOutputNeurons())
 			if (neuron instanceof ErrorNeuron)
 				this.updateNeuronWeights(((ErrorNeuron) neuron).setError(outputError[i++]));
+		return this;
 	}
 
-	protected void updateNeuronWeights(ErrorNeuron neuron) {
+	protected DeltaRule updateNeuronWeights(ErrorNeuron neuron) {
 		for (ISynapse synapse : neuron.getInputConnections()) {
 			double weightChange = weightChange(neuron, synapse);
 			if (this.batchMode)
@@ -65,6 +66,7 @@ public class DeltaRule extends ErrorCorrectionLearning {
 			else
 				synapse.setWeightChange(weightChange).incrementWeight(weightChange);
 		}
+		return this;
 	}
 
 	protected double weightChange(ErrorNeuron neuron, ISynapse synapse) {

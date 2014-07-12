@@ -58,8 +58,9 @@ public class ErrorDecreases implements IStopCondition {
 		return learningRule;
 	}
 
-	public void setLearningRule(ErrorCorrectionLearning learningRule) {
+	public ErrorDecreases setLearningRule(ErrorCorrectionLearning learningRule) {
 		this.learningRule = learningRule;
+		return this;
 	}
 
 	public double getRate() {

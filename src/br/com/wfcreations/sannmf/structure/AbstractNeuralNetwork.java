@@ -32,8 +32,6 @@ package br.com.wfcreations.sannmf.structure;
 import java.util.List;
 import java.util.Vector;
 
-import br.com.wfcreations.sannmf.function.weightinitialization.WeightsInitializer;
-
 public abstract class AbstractNeuralNetwork implements INeuralNetwork {
 
 	private static final long serialVersionUID = 1L;
@@ -82,9 +80,4 @@ public abstract class AbstractNeuralNetwork implements INeuralNetwork {
 	public int getLayersNum() {
 		return this.layers.size();
 	}
-
-	@Override
-	public abstract AbstractNeuralNetwork initializeWeights(WeightsInitializer weightInitializer);
-
-	public abstract AbstractNeuralNetwork initializeWeights(double value);
 }

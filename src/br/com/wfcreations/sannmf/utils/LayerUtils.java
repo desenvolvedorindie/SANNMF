@@ -34,14 +34,47 @@ import java.util.List;
 
 import br.com.wfcreations.sannmf.function.activation.IActivationFunction;
 import br.com.wfcreations.sannmf.function.input.IInputFunction;
+import br.com.wfcreations.sannmf.structure.ILayer;
 import br.com.wfcreations.sannmf.structure.INeuron;
 import br.com.wfcreations.sannmf.structure.feedforward.BiasNeuron;
 import br.com.wfcreations.sannmf.structure.feedforward.ErrorNeuron;
+import br.com.wfcreations.sannmf.structure.feedforward.InputLayer;
+import br.com.wfcreations.sannmf.structure.feedforward.InputNeuron;
 import br.com.wfcreations.sannmf.structure.feedforward.ProcessorLayer;
+import br.com.wfcreations.sannmf.structure.feedforward.ProcessorNeuron;
 
-public class LayerUtils {
+public abstract class LayerUtils {
 
-	public static ProcessorLayer createLayerWithErrorNeuron(int neuronsCount, boolean bias) {
+	public static InputLayer createInputLayer(int neuronsNum, boolean bias) {
+		InputLayer inputLayer = new InputLayer();
+		if (bias)
+			inputLayer.addNeuron(new BiasNeuron());
+		for (int i = 0; i < neuronsNum; i++)
+			inputLayer.addNeuron(new InputNeuron());
+		return inputLayer;
+	}
+
+	public static ProcessorLayer createProcessorLayerWithProcessorNeuron(int neuronsNum, boolean bias) {
+		ProcessorLayer layer = new ProcessorLayer();
+		if (bias) {
+			layer.addNeuron(new BiasNeuron());
+		}
+		for (int i = 0; i < neuronsNum; i++)
+			layer.addNeuron(new ProcessorNeuron());
+		return layer;
+	}
+
+	public static ProcessorLayer createProcessorLayerWithProcessorNeuron(int neuronsNum, boolean bias, IInputFunction inputFunction, IActivationFunction activationFunction) {
+		ProcessorLayer layer = new ProcessorLayer();
+		if (bias) {
+			layer.addNeuron(new BiasNeuron());
+		}
+		for (int i = 0; i < neuronsNum; i++)
+			layer.addNeuron(new ProcessorNeuron(inputFunction, activationFunction));
+		return layer;
+	}
+
+	public static ProcessorLayer createProcessorLayerWithErrorNeuron(int neuronsCount, boolean bias) {
 		ProcessorLayer layer = new ProcessorLayer();
 		if (bias) {
 			layer.addNeuron(new BiasNeuron());
@@ -51,7 +84,7 @@ public class LayerUtils {
 		return layer;
 	}
 
-	public static ProcessorLayer createLayerWithErrorNeuron(int neuronsCount, boolean bias, IInputFunction inputFunction, IActivationFunction activationFunction) {
+	public static ProcessorLayer createProcessorLayerWithErrorNeuron(int neuronsCount, boolean bias, IInputFunction inputFunction, IActivationFunction activationFunction) {
 		ProcessorLayer layer = new ProcessorLayer();
 		if (bias) {
 			layer.addNeuron(new BiasNeuron());
@@ -61,12 +94,38 @@ public class LayerUtils {
 		return layer;
 	}
 
-	public static BiasNeuron[] getBiasNeurons(ProcessorLayer layer) {
+	public static List<BiasNeuron> getBiasNeurons(ILayer layer) {
 		List<BiasNeuron> neurons = new ArrayList<BiasNeuron>();
-		for (INeuron neuron : layer.getNeurons()) {
+		for (INeuron neuron : layer.getNeurons())
 			if (neuron instanceof BiasNeuron)
 				neurons.add((BiasNeuron) neuron);
+		return neurons;
+	}
+
+	public static List<InputNeuron> getInputNeurons(ILayer layer) {
+		List<InputNeuron> neurons = new ArrayList<InputNeuron>();
+		for (INeuron neuron : layer.getNeurons()) {
+			if (neuron instanceof InputNeuron)
+				neurons.add((InputNeuron) neuron);
 		}
-		return neurons.toArray(new BiasNeuron[neurons.size()]);
+		return neurons;
+	}
+
+	public static List<ProcessorNeuron> getProcessorNeurons(ILayer layer) {
+		List<ProcessorNeuron> neurons = new ArrayList<ProcessorNeuron>();
+		for (INeuron neuron : layer.getNeurons()) {
+			if (neuron instanceof ProcessorNeuron)
+				neurons.add((ProcessorNeuron) neuron);
+		}
+		return neurons;
+	}
+
+	public static List<ErrorNeuron> getErrorNeurons(ILayer layer) {
+		List<ErrorNeuron> neurons = new ArrayList<ErrorNeuron>();
+		for (INeuron neuron : layer.getNeurons()) {
+			if (neuron instanceof ProcessorNeuron)
+				neurons.add((ErrorNeuron) neuron);
+		}
+		return neurons;
 	}
 }

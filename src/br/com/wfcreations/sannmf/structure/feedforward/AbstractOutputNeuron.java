@@ -126,7 +126,4 @@ public abstract class AbstractOutputNeuron extends AbstractNeuron implements IOu
 	public ISynapse getOutputConnectionAt(int index) {
 		return this.outputSynapses.get(index);
 	}
-
-	@Override
-	public abstract double getOutput();
 }

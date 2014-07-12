@@ -29,8 +29,8 @@
  */
 package br.com.wfcreations.sannmf.neuralnetwork;
 
+import br.com.wfcreations.sannmf.function.activation.HardLimit;
 import br.com.wfcreations.sannmf.function.activation.IActivationFunction;
-import br.com.wfcreations.sannmf.function.activation.Sign;
 import br.com.wfcreations.sannmf.function.input.WeightedSum;
 import br.com.wfcreations.sannmf.structure.feedforward.BiasNeuron;
 import br.com.wfcreations.sannmf.structure.feedforward.FeedforwardNeuralNetwork;
@@ -46,7 +46,7 @@ public class Perceptron extends FeedforwardNeuralNetwork {
 	private static final long serialVersionUID = 1L;
 
 	public Perceptron(int inputs, int outputs, boolean hasBias) {
-		this(inputs, outputs, hasBias, new Sign());
+		this(inputs, outputs, hasBias, new HardLimit());
 	}
 
 	public Perceptron(int inputs, int outputs, boolean hasBias, IActivationFunction activationFunction) {
@@ -57,14 +57,18 @@ public class Perceptron extends FeedforwardNeuralNetwork {
 		if (activationFunction == null)
 			throw new IllegalArgumentException("Activation function can't be null");
 
-		InputLayer inputLayer = new InputLayer(inputs, false);
-		ProcessorLayer outputLayer = LayerUtils.createLayerWithErrorNeuron(outputs, false, new WeightedSum(), activationFunction);
+		InputLayer inputLayer = LayerUtils.createInputLayer(inputs, false);
+		ProcessorLayer outputLayer = LayerUtils.createProcessorLayerWithErrorNeuron(outputs, false, new WeightedSum(), activationFunction);
+
 		this.addLayer(inputLayer);
 		this.addLayer(outputLayer);
+
 		this.inputNeurons = inputLayer.getNeurons().toArray(new InputNeuron[inputLayer.getNeuronsNum()]);
 		this.outputNeurons = outputLayer.getNeurons().toArray(new IOutputtedNeuron[outputLayer.getNeuronsNum()]);
+
 		if (hasBias)
 			inputLayer.addNeuronAt(0, new BiasNeuron());
+
 		SynapseUtils.fullConnect(inputLayer, outputLayer);
 	}
 }

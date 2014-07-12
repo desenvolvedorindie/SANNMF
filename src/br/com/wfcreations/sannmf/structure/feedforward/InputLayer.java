@@ -34,13 +34,4 @@ import br.com.wfcreations.sannmf.structure.AbstractLayer;
 public class InputLayer extends AbstractLayer {
 
 	private static final long serialVersionUID = 1L;
-
-	public InputLayer(int neuronsNum , boolean bias) {
-		if (neuronsNum < 0)
-			throw new IllegalArgumentException("Must be positive");
-		if (bias)
-			this.addNeuron(new BiasNeuron());
-		for (int i = 0; i < neuronsNum; i++)
-			this.addNeuron(new InputNeuron());
-	}
 }

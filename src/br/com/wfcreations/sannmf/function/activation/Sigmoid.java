@@ -33,7 +33,7 @@ public class Sigmoid extends OutputCachedActivationFunction implements IDerivati
 
 	private static final long serialVersionUID = 1L;
 
-	protected double slope = 1d;
+	protected double slope = 1;
 
 	public Sigmoid() {
 	}

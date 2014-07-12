@@ -29,6 +29,9 @@
  */
 package br.com.wfcreations.sannmf.learning;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.wfcreations.sannmf.event.IterativeLearningEvent;
 import br.com.wfcreations.sannmf.event.LearningEvent;
 import br.com.wfcreations.sannmf.learning.stopcondition.IStopCondition;
@@ -41,44 +44,44 @@ public abstract class IterativeLearning extends AbstractLearningRule {
 
 	protected boolean batchMode;
 
-	protected IStopCondition[] stopConditions;
+	protected List<IStopCondition> stopConditions = new ArrayList<>();
 
-	protected transient volatile boolean stopLearning;
+	protected transient volatile boolean stopped;
 
-	protected transient volatile boolean pausedLearning;
+	protected transient volatile boolean paused;
 
 	public int getCurrentEpoch() {
-		return currentEpoch;
+		return this.currentEpoch;
 	}
 
-	public IterativeLearning pauseLearning() {
-		this.pausedLearning = true;
+	public IterativeLearning pause() {
+		this.paused = true;
 		return this;
 	}
 
-	public IterativeLearning resumeLearning() {
-		this.pausedLearning = false;
+	public IterativeLearning resume() {
+		this.paused = false;
 		synchronized (this) {
-			notify();
+			this.notify();
 		}
 		return this;
 	}
 
-	public IterativeLearning stopLearning() {
-		stopLearning = false;
+	public IterativeLearning stop() {
+		this.stopped = false;
 		return this;
 	}
 
-	public boolean isStoppedLearning() {
-		return this.stopLearning;
+	public boolean isStopped() {
+		return this.stopped;
 	}
 
-	public boolean isPausedLearning() {
-		return pausedLearning;
+	public boolean isPaused() {
+		return this.paused;
 	}
 
 	public boolean isBatchMode() {
-		return batchMode;
+		return this.batchMode;
 	}
 
 	public IterativeLearning setBatchMode(boolean batchMode) {
@@ -86,37 +89,37 @@ public abstract class IterativeLearning extends AbstractLearningRule {
 		return this;
 	}
 
-	protected IterativeLearning startLearning() {
-		this.stopLearning = false;
-		eventDispatcher.dispatchEvent(new IterativeLearningEvent(LearningEvent.INIT_LEARNING, this));
-		while (!isStoppedLearning()) {
-			onBeforeEpoch();
-			eventDispatcher.dispatchEvent(new IterativeLearningEvent(IterativeLearningEvent.START_EPOCH, this));
-			doLearningEpoch();
+	protected IterativeLearning start() {
+		this.stopped = false;
+		this.eventDispatcher.dispatchEvent(new IterativeLearningEvent(LearningEvent.INIT_LEARNING, this));
+		while (!this.isStopped()) {
+			this.onBeforeEpoch();
+			this.eventDispatcher.dispatchEvent(new IterativeLearningEvent(IterativeLearningEvent.START_EPOCH, this));
+			this.doLearningEpoch();
 			this.currentEpoch++;
 			if (this.batchMode == true)
-				doBatchWeightsUpdate();
-			onAfterEpoch();
-			eventDispatcher.dispatchEvent(new IterativeLearningEvent(IterativeLearningEvent.END_EPOCH, this));
-			if (hasReachedStopCondition() || isStoppedLearning()) {
-				onStopLearning();
-				eventDispatcher.dispatchEvent(new IterativeLearningEvent(IterativeLearningEvent.STOP_LEARNING, this));
+				this.doBatchWeightsUpdate();
+			this.onAfterEpoch();
+			this.eventDispatcher.dispatchEvent(new IterativeLearningEvent(IterativeLearningEvent.END_EPOCH, this));
+			if (this.hasReachedStopCondition() || this.isStopped()) {
+				this.onStop();
+				this.eventDispatcher.dispatchEvent(new IterativeLearningEvent(IterativeLearningEvent.STOP_LEARNING, this));
 				break;
 			} else if (this.currentEpoch == Integer.MAX_VALUE)
 				this.currentEpoch = 1;
-			if (this.pausedLearning) {
-				eventDispatcher.dispatchEvent(new IterativeLearningEvent(IterativeLearningEvent.PAUSE_LEARNING, this));
+			if (this.paused) {
+				this.eventDispatcher.dispatchEvent(new IterativeLearningEvent(IterativeLearningEvent.PAUSE_LEARNING, this));
 				synchronized (this) {
-					while (this.pausedLearning)
+					while (this.paused)
 						try {
 							this.wait();
 						} catch (InterruptedException e) {
 						}
 				}
-				eventDispatcher.dispatchEvent(new IterativeLearningEvent(IterativeLearningEvent.RESUME_LEARNING, this));
+				this.eventDispatcher.dispatchEvent(new IterativeLearningEvent(IterativeLearningEvent.RESUME_LEARNING, this));
 			}
 		}
-		eventDispatcher.dispatchEvent(new IterativeLearningEvent(LearningEvent.COMPLETE_LEARNING, this));
+		this.eventDispatcher.dispatchEvent(new IterativeLearningEvent(LearningEvent.COMPLETE_LEARNING, this));
 		return this;
 	}
 
@@ -127,9 +130,9 @@ public abstract class IterativeLearning extends AbstractLearningRule {
 		return false;
 	}
 
-	protected abstract void onStartLearning();
+	protected abstract void onStart();
 
-	protected abstract void onStopLearning();
+	protected abstract void onStop();
 
 	protected abstract void onBeforeEpoch();
 

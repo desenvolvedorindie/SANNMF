@@ -44,6 +44,10 @@ public class MLP extends FeedforwardNeuralNetwork {
 
 	private static final long serialVersionUID = 1L;
 
+	public MLP(int inputs, int[] hiddens, int outputs, boolean bias, IDerivativeActivationFunction activationFunction) {
+		this(inputs, hiddens, outputs, bias, activationFunction, false);
+	}
+
 	public MLP(int inputs, int[] hiddens, int outputs, boolean bias, IDerivativeActivationFunction activationFunction, boolean connectInputsToOutputs) {
 		if (inputs < 1)
 			throw new IllegalArgumentException("Inputs must be greater than 0");
@@ -59,13 +63,13 @@ public class MLP extends FeedforwardNeuralNetwork {
 			if (l < 1)
 				throw new IllegalArgumentException("Hiddens have at least one neuron");
 
-		InputLayer inputLayer = new InputLayer(inputs, false);
+		InputLayer inputLayer = LayerUtils.createInputLayer(inputs, false);
 		this.addLayer(inputLayer);
 
 		for (int n : hiddens)
-			this.addLayer(LayerUtils.createLayerWithErrorNeuron(n, false, new WeightedSum(), activationFunction));
+			this.addLayer(LayerUtils.createProcessorLayerWithErrorNeuron(n, false, new WeightedSum(), activationFunction));
 
-		ProcessorLayer outputLayer = LayerUtils.createLayerWithErrorNeuron(outputs, false, new WeightedSum(), activationFunction);
+		ProcessorLayer outputLayer = LayerUtils.createProcessorLayerWithErrorNeuron(outputs, false, new WeightedSum(), activationFunction);
 		this.addLayer(outputLayer);
 
 		this.inputNeurons = inputLayer.getNeurons().toArray(new InputNeuron[inputLayer.getNeuronsNum()]);

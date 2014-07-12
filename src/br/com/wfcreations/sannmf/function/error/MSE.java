@@ -29,24 +29,22 @@
  */
 package br.com.wfcreations.sannmf.function.error;
 
-import java.io.Serializable;
-
-public class MSE implements IErrorFunction, Serializable {
+public class MSE implements IErrorFunction {
 
 	private static final long serialVersionUID = 1L;
 
 	private transient double totalSquaredErrorSum = 0;
 
-	private transient int n;
+	private transient int addedCount;
 
 	@Override
 	public double getTotalError() {
-		return totalSquaredErrorSum / n;
+		return this.totalSquaredErrorSum / this.addedCount;
 	}
 
 	@Override
 	public void addOutputsError(double[] outputError) {
-		n++;
+		this.addedCount++;
 		this.totalSquaredErrorSum += getOutputError(outputError);
 	}
 
@@ -60,7 +58,7 @@ public class MSE implements IErrorFunction, Serializable {
 
 	@Override
 	public void reset() {
-		totalSquaredErrorSum = 0;
-		n = 0;
+		this.totalSquaredErrorSum = 0;
+		this.addedCount = 0;
 	}
 }

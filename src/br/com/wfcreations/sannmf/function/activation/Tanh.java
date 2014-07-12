@@ -33,7 +33,7 @@ public class Tanh extends OutputCachedActivationFunction implements IDerivativeA
 
 	private static final long serialVersionUID = 1L;
 
-	protected double slope = 1d;
+	protected double slope = 1;
 
 	public Tanh() {
 	}

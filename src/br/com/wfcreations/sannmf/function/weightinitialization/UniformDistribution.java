@@ -29,7 +29,7 @@
  */
 package br.com.wfcreations.sannmf.function.weightinitialization;
 
-public class UniformDistribution extends WeightsInitializer {
+public class UniformDistribution extends AbstractWeightsInitializer {
 
 	private static final long serialVersionUID = 1L;
 
