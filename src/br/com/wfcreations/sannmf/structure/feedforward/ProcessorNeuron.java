@@ -54,6 +54,8 @@ public class ProcessorNeuron extends AbstractOutputNeuron implements IInputtedNe
 
 	protected transient double output;
 
+	private Object data;
+
 	public ProcessorNeuron() {
 		this(new WeightedSum(), new Linear());
 	}
@@ -190,6 +192,15 @@ public class ProcessorNeuron extends AbstractOutputNeuron implements IInputtedNe
 
 	public ProcessorNeuron setActivationFunction(IActivationFunction activationFunction) {
 		this.activationFunction = activationFunction;
+		return this;
+	}
+
+	public Object getData() {
+		return this.data;
+	}
+
+	public ProcessorNeuron setData(Object data) {
+		this.data = data;
 		return this;
 	}
 }
