@@ -14,7 +14,7 @@ Learning Algorithms
 - Backpropagation
 
 
-
+Numbers
 
 						Interface	Abstract 	Concrete	total
 data					0			0			4			4
