@@ -39,9 +39,9 @@ public class WeightedSum implements IInputFunction {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public double output(List<ISynapse> inputSynapses) {
+	public double output(List<ISynapse> input) {
 		double output = 0;
-		for (ISynapse synapse : inputSynapses)
+		for (ISynapse synapse : input)
 			if (synapse.getPresynaptic() instanceof IOutputtedNeuron)
 				output += ((IOutputtedNeuron) synapse.getPresynaptic()).getOutput() * synapse.getWeight();
 		return output;
