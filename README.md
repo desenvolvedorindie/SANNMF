@@ -31,4 +31,4 @@ Numbers
 |structure				| 4			| 3				| 1			| 8		|
 |feedforward			| 2			| 2				| 6			| 10	|
 |utils					| 0			| 0				| 2			| 2		|
-|				  Total | 15		| 10			| 37		| 62	|
+|				*Total*	| 15		| 10			| 37		| 62	|
