@@ -2,19 +2,18 @@ Simple Artificial Neural Network Micro-Framework
 ===========================================
 
 
-Neural Networks Models:
+# Neural Networks Models:
 
-- Perceptron
-- MLP
+## Perceptron
+## MLP
 
-Learning Algorithms
+# Learning Algorithms
 
-- LMS
-- DeltaRule
-- Backpropagation
+## LMS
+## DeltaRule
+## Backpropagation
 
-
-Numbers
+# Numbers
 
 |						| Interface |	Abstract 	| Concrete	| Total	|
 |:---------------------:|:---------:|:-------------:|:---------:|:-----:|
