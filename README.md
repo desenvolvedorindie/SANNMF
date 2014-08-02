@@ -1,7 +1,3 @@
-Simple Artificial Neural Network Micro-Framework
-===========================================
-
-
 # Neural Networks Models:
 
 ## Perceptron
