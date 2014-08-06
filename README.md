@@ -11,7 +11,7 @@
 
 # Diagram
 
-![Diagram](https://github.com/wfcreations/SANNMF/blob/master/diagrams/framework.bmp)
+![Diagram](https://github.com/wfcreations/SANNMF/raw/master/diagrams/framework.bmp)
 
 # Numbers
 
