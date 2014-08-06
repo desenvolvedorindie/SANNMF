@@ -9,6 +9,10 @@
 ## DeltaRule
 ## Backpropagation
 
+# Diagram
+
+![Diagram](https://github.com/wfcreations/SANNMF/blob/master/diagrams/framework.bmp)
+
 # Numbers
 
 |						| Interface |	Abstract 	| Concrete	| Total	|
